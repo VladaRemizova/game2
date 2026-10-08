@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Локальный прототип Большого Маршрута: заезд, жетоны, барабан и выбор оффера.">
+<title>Большой Маршрут — прототип игры</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Cpath d='M6 0v32M26 0v32M16 0v32' stroke='black' stroke-width='2' stroke-dasharray='5 3'/%3E%3Crect x='11' y='10' width='10' height='15' rx='2' fill='black'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:light;font-family:Arial,Helvetica,sans-serif;color:#171717;background:#f3f3f3;font-size:16px;line-height:1.45}
+*{box-sizing:border-box}body{margin:0;padding:28px 24px 48px}button,input,select{font:inherit}button{min-height:44px;border:1.5px solid #222;border-radius:4px;background:#fff;color:#111;padding:11px 14px;cursor:pointer;line-height:1.35}button:hover:enabled{background:#e8e8e8}button:disabled{cursor:default;color:#888;border-color:#ccc;background:#f4f4f4}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,canvas:focus-visible{outline:3px solid #555;outline-offset:3px}.primary{background:#181818;color:#fff;font-weight:700}.primary:hover:enabled{background:#424242}.page-header{max-width:1120px;margin:0 auto 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.eyebrow{font-size:.8rem;letter-spacing:.08em;font-weight:700;margin:0 0 9px;color:#555}h1{font-size:clamp(1.6rem,3vw,2.15rem);margin:0;line-height:1.2}h2{font-size:1.35rem;line-height:1.3;margin:0 0 15px}h3{font-size:1.1rem;margin:14px 0}p{margin:0 0 16px}.local-badge{font-size:.875rem;border:1px solid #aaa;border-radius:4px;padding:8px 12px;margin:0}.workspace{max-width:1120px;margin:auto;display:grid;grid-template-columns:minmax(360px,460px) minmax(0,1fr);gap:32px;align-items:start}.play-column{position:sticky;top:18px}.steps{display:flex;justify-content:space-between;gap:4px;margin-bottom:12px;font-size:.875rem}.steps span{padding:5px 4px;border-bottom:2px solid transparent}.steps [aria-current="step"]{border-color:#171717;font-weight:700}.game{border:2px solid #222;background:#fff;border-radius:8px;overflow:hidden}.game-top{border-bottom:1px solid #aaa;padding:12px 18px;display:flex;justify-content:space-between;gap:16px;font-size:.8rem}.game-top strong{letter-spacing:.04em}.game-top span{color:#555}.screen{padding:25px 24px 28px}.screen>button{display:block;width:100%;margin-top:12px}[hidden]{display:none!important}.hint{font-size:.875rem;color:#555}.screen .hint{margin:15px 0 0}.thresholds{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #999;border-radius:4px;margin:22px 0}.thresholds>div{text-align:center;padding:13px 3px}.thresholds>div+div{border-left:1px solid #999}.thresholds strong{display:block;font-size:1.6rem}.thresholds span{font-size:.875rem}.mini-road{height:120px;position:relative;border-left:2px solid;border-right:2px solid;max-width:210px;margin:4px auto 30px;background:repeating-linear-gradient(to bottom,#fff 0 15px,#aaa 15px 28px,#fff 28px 42px);background-size:2px 100%;background-repeat:repeat-y;background-position:33% 0}.mini-road:after{content:"";position:absolute;left:66%;height:100%;border-left:2px dashed #999}.mini-car{position:absolute;background:#333;width:35px;height:58px;left:40%;top:50px;border:2px solid #111;border-radius:5px;z-index:1}.mini-car i{position:absolute;top:3px;left:3px;width:7px;height:5px;background:#fff}.mini-car i+i{left:auto;right:3px}.mini-road b{position:absolute;top:13px;left:44%;border:2px solid;border-radius:50%;width:23px;text-align:center;height:23px;font-size:.8rem;background:white}.hud{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:8px}.hud span{display:block;font-size:.8rem;color:#555}.hud strong{font-size:1.6rem;font-variant-numeric:tabular-nums}.race-screen{padding:15px 16px 18px}.meter{height:10px;border:1px solid #444;position:relative;margin-top:10px}.meter div{height:100%;width:0;background:#444}.meter i{position:absolute;left:33.333%;top:0;bottom:0;border-left:1px solid #777}.meter i+i{left:66.666%}.race-screen>#next-threshold{margin:7px 0 10px;min-height:1.3em;text-align:center}.road-wrap{position:relative;max-width:360px;margin:auto}canvas{width:100%;height:auto;aspect-ratio:3/4;display:block;border:1px solid #666;background:white;touch-action:none}.road-status{position:absolute;bottom:7px;left:8px;right:8px;text-align:center;padding:3px 5px;background:#fffe;border:1px solid #aaa;font-size:.8rem;pointer-events:none}.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}.controls button{padding:9px 5px}.race-screen>button{margin-top:8px}.race-screen .hint{font-size:.8rem}.pause-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#ffffffed;text-align:center;padding:20px;z-index:2}.pause-overlay h3{font-size:1.7rem}.result-number{text-align:center;margin:30px 0 12px}.result-number strong{font-size:4.5rem;display:block;line-height:1.1;font-variant-numeric:tabular-nums}.result-number span{color:#555}.race-summary{margin:22px 0;border-top:1px solid #aaa;padding-top:12px;display:grid;grid-template-columns:1fr auto;gap:6px}.race-summary dt,.race-summary dd{margin:0;font-size:.875rem}.race-summary dd{font-weight:700}.wheel-screen{padding-top:20px}.wheel-screen>p{font-size:.875rem}.wheel-stats{display:flex;justify-content:space-between;gap:10px;font-size:.875rem}.wheel{display:block;width:100%;max-width:390px;margin:-3px auto -5px;overflow:visible}.wheel #wheel-rotor{transform-origin:200px 220px}.wheel text{font-family:Arial,Helvetica,sans-serif}.spin-result{padding:12px;border:1px solid #777;min-height:66px;font-size:.95rem;background:#f7f7f7}.dropped-offers{margin-top:16px}.dropped-offers h3{font-size:.95rem}.small-offer{padding:9px 10px;border-left:3px solid #222;background:#f3f3f3;margin:7px 0;font-size:.875rem}.wheel-legend{margin-top:15px;font-size:.875rem}.wheel-legend ol{padding-left:24px}.wheel-legend li{margin:7px 0}.offer-card{padding:18px;border:1.5px solid #333;margin:16px 0;border-radius:4px;background:#fff}.offer-card h3{margin:0 0 7px}.offer-card p{margin:0 0 8px}.offer-card .offer-benefit{font-size:1.5rem;font-weight:700}.offer-card .hint{margin:0}#offer-options{border:0;padding:0;margin:20px 0}.offer-option{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.offer-option input{accent-color:#111;width:20px;height:20px;flex:0 0 20px;margin:3px 0}.offer-option:has(input:checked){border-width:3px;background:#f3f3f3;padding:16px}.offer-option strong{display:block;font-size:1rem}.offer-option span{display:block;margin-top:5px}.success-mark{width:60px;height:60px;border:2px solid;border-radius:50%;display:grid;place-items:center;font-size:2rem;margin-bottom:24px}.tomorrow-box{background:#f3f3f3;border:1px solid #aaa;padding:15px;margin:20px 0}.tomorrow-box p{font-size:.875rem;margin:7px 0 0}.storage-note{font-size:.8rem;color:#666;margin:12px 2px 0}.logic-column{display:grid;gap:18px}.note-panel{background:#fff;border:1px solid #bcbcbc;border-radius:4px;padding:22px 24px}.note-panel h2{font-size:1.15rem;margin-bottom:14px}.note-panel p:last-child{margin-bottom:0}.logic-numbers{font-size:.875rem;border-top:1px solid #bbb;margin-top:18px;padding-top:13px;line-height:1.8;min-height:30px}.flow{list-style:none;padding:0;margin:0 0 20px}.flow li{position:relative;padding:0 0 20px 24px;border-left:1.5px solid #888;margin-left:5px}.flow li:last-child{padding-bottom:0;border-left-color:transparent}.flow li:before{content:"";position:absolute;top:5px;left:-5px;width:9px;height:9px;border-radius:50%;background:#222}.flow strong{display:block;font-size:.95rem}.flow span{display:block;font-size:.875rem;color:#555;margin-top:4px}details{border-top:1px solid #ccc;padding-top:13px}summary{cursor:pointer;font-size:.875rem;font-weight:700;line-height:1.5}details p{font-size:.875rem;line-height:1.6;margin-top:12px}.demo-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0 20px}.demo-buttons button{font-size:.875rem}.select-label{display:block;font-size:.875rem;font-weight:700;margin-bottom:6px}select{display:block;width:100%;border:1px solid #777;background:white;color:#111;min-height:44px;padding:8px;margin:0 0 18px}.checkbox-label{display:flex;gap:10px;align-items:center;font-size:.95rem;cursor:pointer}.checkbox-label input{width:18px;height:18px;accent-color:#111}.demo-panel>.hint{margin-top:8px}.demo-panel>button{width:100%;margin:8px 0}.demo-panel details{margin-top:20px}.rule-list{font-size:.875rem;line-height:1.6;padding-left:20px}.rule-list li{margin:12px 0}.event-log{padding-left:24px;font-size:.875rem;max-height:200px;overflow:auto}.event-log li{padding:4px 0}.event-log li:first-child{font-weight:700}dialog{color:#111;border:2px solid #111;border-radius:6px;width:min(420px,calc(100% - 32px));padding:0}dialog::backdrop{background:#0006}.dialog-content{padding:28px}.dialog-content>button{width:100%;margin-top:10px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}noscript{display:block;margin:30px;color:#111}
+@media(max-width:800px){body{padding:18px 14px 32px}.page-header{align-items:flex-start;flex-direction:column;gap:12px;margin-bottom:20px}.workspace{grid-template-columns:1fr;gap:22px;max-width:510px}.play-column{position:static}.page-header{max-width:510px}.screen{padding:22px 20px}.race-screen{padding:12px}.note-panel{padding:20px}.steps{font-size:.8rem;gap:1px}.steps span{padding:5px 2px}.local-badge{font-size:.8rem}.wheel-stats{font-size:.8rem}.game-top{font-size:.75rem;padding:11px 14px}}
+/* The game can be taller than the window: allow scrolling to its controls. */
+.play-column{position:static}.road-wrap{max-width:285px}
+@media(prefers-reduced-motion:reduce){#wheel-rotor{transition:none!important}}
+
+</style>
+</head>
+<body>
+<header class="page-header"><div><p class="eyebrow">ЛУКОЙЛ · ПРОТОТИП</p><h1>Большой Маршрут</h1></div><p class="local-badge">Работает офлайн · данные не отправляются</p></header>
+<main class="workspace">
+<div class="play-column">
+<nav aria-label="Этапы игры" class="steps" id="steps"><span data-step="home">Вход</span><span data-step="race">Заезд</span><span data-step="finish">Финиш</span><span data-step="wheel">Барабан</span><span data-step="choice">Выбор</span><span data-step="claimed">Приз</span></nav>
+<article class="game" aria-label="Игровой прототип">
+<div class="game-top"><strong>БОЛЬШОЙ МАРШРУТ</strong><span id="screen-label">Вход</span></div>
+<section data-screen="home" class="screen" aria-labelledby="home-title">
+<div class="mini-road" aria-hidden="true"><div class="mini-car"><i></i><i></i></div><b>1</b></div>
+<p class="eyebrow">ЕЖЕДНЕВНЫЙ ЗАЕЗД</p><h2 id="home-title">60 секунд за рулём —<br>оффер на сегодня</h2><p>Собирайте монеты, объезжайте ямы и обменяйте жетоны на вращения барабана.</p>
+<div class="thresholds"><div><strong>15</strong><span>1 вращение</span></div><div><strong>30</strong><span>2 вращения</span></div><div><strong>45</strong><span>3 вращения</span></div></div>
+<p class="hint">Каждое вращение даёт оффер. Забрать можно один.</p><button class="primary" data-action="start" id="start-button">Играть</button><p id="home-lock" class="hint" hidden></p><button data-action="cabinet" id="home-cabinet" hidden>Посмотреть мой приз</button>
+</section>
+<section data-screen="race" class="screen race-screen" hidden aria-labelledby="race-title">
+<h2 id="race-title" class="sr-only">Заезд</h2>
+<div class="hud"><div><span>Жетоны</span><strong id="tokens">0</strong></div><div><span>Вращения</span><strong id="earned">0 / 3</strong></div><div><span>Осталось</span><strong id="timer">1:00</strong></div></div>
+<div class="meter" aria-label="Жетоны до трёх вращений"><div id="token-fill"></div><i></i><i></i></div><p id="next-threshold" class="hint">Ещё 15 жетонов до первого вращения</p>
+<div class="road-wrap"><canvas id="road" width="360" height="480" tabindex="0" aria-label="Три полосы. Стрелки или свайп меняют полосу. E включает ЭКТО, пробел ставит на паузу.">Для игры нужен Canvas.</canvas><div id="pause-overlay" class="pause-overlay" hidden><h3>Пауза</h3><p>Время заезда остановлено.</p><button class="primary" data-action="pause">Продолжить</button></div><div class="road-status" id="road-status" role="status">Монета = 1 жетон</div></div>
+<div class="controls"><button data-action="left">Влево</button><button data-action="pause" id="pause-button">Пауза</button><button data-action="right">Вправо</button></div>
+<button class="primary" data-action="ekto" id="ekto-button">Заправиться ЭКТО · ×2 на 10 секунд</button><button data-action="early" id="early-button" disabled>Забрать приз сейчас</button><p class="hint">Стрелки / A, D / свайп — полоса · E — ЭКТО · пробел — пауза</p>
+</section>
+<section data-screen="finish" class="screen" hidden aria-labelledby="finish-title"><p class="eyebrow">ЗАЕЗД ЗАКОНЧЕН</p><h2 id="finish-title">Финиш</h2><div class="result-number"><strong id="finish-tokens">0</strong><span>жетонов</span></div><h3 id="finish-spins">0 вращений</h3><p id="finish-description"></p><dl class="race-summary" id="race-summary"></dl><button class="primary" data-action="exchange" id="exchange-button">Обменять жетоны на офферы</button><button data-action="replay">Переиграть</button><p class="hint">До получения приза можно переигрывать. Новый заезд заменяет текущий результат.</p></section>
+<section data-screen="wheel" class="screen wheel-screen" hidden aria-labelledby="wheel-title"><h2 id="wheel-title">Призовой барабан</h2><p>Каждое вращение — гарантированный оффер.</p><div class="wheel-stats"><span>Жетоны: <strong id="bank">0</strong></span><span>Осталось вращений: <strong id="remaining-spins">0</strong></span></div>
+<svg id="wheel-svg" class="wheel" viewBox="0 0 400 430" role="img" aria-label="Барабан с восемью секторами. Стрелка сверху указывает на выпавший оффер."><g id="wheel-rotor"></g><path d="M184 16 L216 16 L200 45 Z" fill="#111" stroke="white" stroke-width="2"/><circle cx="200" cy="220" r="35" fill="white" stroke="#111" stroke-width="2"/><text x="200" y="225" text-anchor="middle" font-size="12" font-weight="700">ОФФЕРЫ</text></svg>
+<div id="spin-result" class="spin-result" role="status">Нажмите «Вращать», чтобы открыть первый оффер.</div><button class="primary" data-action="spin" id="spin-button">Вращать · 15 жетонов</button><button class="primary" data-action="choose" id="choose-button" hidden>Перейти к выбору приза</button><div id="dropped-offers" class="dropped-offers"></div><details class="wheel-legend"><summary>Что находится в 8 секторах</summary><ol id="sector-list"></ol></details><button data-action="replay" id="wheel-replay">Переиграть</button></section>
+<section data-screen="choice" class="screen" hidden aria-labelledby="choice-title"><p class="eyebrow">ОФФЕР ДЕЙСТВУЕТ 24 ЧАСА</p><h2 id="choice-title">Выберите свой приз</h2><p id="choice-description"></p><fieldset id="offer-options"><legend class="sr-only">Выпавшие офферы</legend></fieldset><button class="primary" data-action="claim" id="claim-button" disabled>Забрать приз</button><button data-action="replay">Переиграть</button></section>
+<section data-screen="claimed" class="screen" hidden aria-labelledby="claimed-title"><div class="success-mark" aria-hidden="true">✓</div><h2 id="claimed-title">Приз выбран</h2><div id="claimed-offer" class="offer-card"></div><p>Оффер сохранён в локальном демо-кабинете.</p><p id="claim-expiry"></p><div class="tomorrow-box"><strong>Приходите завтра</strong><p>Жетоны и вращения обнулены. Новый заезд — на следующий день.</p></div><button class="primary" data-action="cabinet">В демо-кабинет</button><button data-action="home">На главный экран</button><p class="hint">Это демонстрационный приз. На АЗС он не действует.</p></section>
+<section data-screen="cabinet" class="screen" hidden aria-labelledby="cabinet-title"><p class="eyebrow">ЛОКАЛЬНАЯ ДЕМОНСТРАЦИЯ</p><h2 id="cabinet-title">Мой приз</h2><div id="cabinet-offer" class="offer-card"></div><p id="cabinet-expiry"></p><p class="hint">В рабочей версии оффер попадёт в личный кабинет ЛУКОЙЛ. Здесь весь сценарий остаётся в браузере.</p><button data-action="home">На главный экран</button></section>
+</article><p class="storage-note" id="storage-note">Только локально: браузер помнит получение приза до следующего дня.</p>
+</div>
+<aside class="logic-column" aria-label="Объяснение и проверка логики">
+<section class="note-panel current-note"><p class="eyebrow">ЧТО ПРОИСХОДИТ СЕЙЧАС</p><h2 id="logic-title">Вход в игру</h2><p id="logic-description"></p><div id="logic-numbers" class="logic-numbers"></div></section>
+<section class="note-panel"><h2>Вся логика на одной схеме</h2><ol class="flow"><li><strong>Заезд: до 60 секунд</strong><span>3 полосы · 90 монет · 8 ям</span></li><li><strong>Монеты → жетоны</strong><span>Обычная: +1 · с ЭКТО: +2 · яма: −1</span></li><li><strong>Каждые 15 жетонов → вращение</strong><span>15 → 1 · 30 → 2 · 45 → 3. На 45 — финиш.</span></li><li><strong>Барабан: 8 секторов с офферами</strong><span>1 вращение открывает 1 оффер. Пустых нет.</span></li><li><strong>Из 1–3 офферов → один приз</strong><span>Выбор, получение, 24 часа на использование.</span></li><li><strong>Приз получен → новый заезд завтра</strong><span>Жетоны и вращения обнуляются.</span></li></ol><details><summary>Как я понимаю барабан</summary><p>Это колесо с восемью секторами и неподвижным указателем сверху. Оффер определяется до вращения; анимация останавливается на его секторе. Она показывает результат обмена.</p><p>Например: 32 жетона → 2 вращения → 2 оффера → выбор одного → получение одного приза. Оставшиеся 2 жетона нового вращения не дают.</p><p>В документе реальный пул задаётся сегментом игрока. Здесь используются демонстрационные пулы, без идентификаторов и подключения к ЛУКОЙЛ.</p></details></section>
+<section class="note-panel demo-panel"><h2>Быстро проверить сценарий</h2><p class="hint">Кнопки показывают готовый результат заезда, чтобы сразу изучить барабан.</p><div class="demo-buttons"><button data-demo="9">9 жетонов · 0 вращений</button><button data-demo="15">15 жетонов · 1 вращение</button><button data-demo="30">30 жетонов · 2 вращения</button><button data-demo="45">45 жетонов · 3 вращения</button></div><label class="select-label" for="segment">Демонстрационный сегмент</label><select id="segment"><option value="mixed">Смешанный пул</option><option value="cafe">Кафе и магазин</option><option value="car">Автовладелец</option></select><label class="checkbox-label"><input type="checkbox" id="autopilot">Автопилот для просмотра заезда</label><p class="hint">Собирает монеты и объезжает ямы. ЭКТО включается вручную.</p><button data-action="reset" id="reset-button">Сбросить демо и начать заново</button><p class="hint">Снимает ограничение «до завтра» и очищает демо-приз.</p><details><summary>Правила, уточнения и допущения</summary><ul class="rule-list">
+<li>Заработанные вращения защищены: на 15 и 30 жетонах яма не уменьшит баланс ниже этих порогов. На 31 станет 30.</li><li>ЭКТО действует 10 секунд, один раз за заезд. Ямы продолжают действовать.</li><li>Замедление в документе не задано числом: здесь скорость на 1,2 секунды падает до 55%. Таймер продолжает идти.</li><li>Меньше 15 жетонов — 0 вращений. Бесплатного первого вращения нет.</li><li>«Забрать приз сейчас» завершает заезд и ведёт на финиш; затем надо вращать барабан и выбрать приз.</li><li>Максимум 45 жетонов. «62 жетона» на слайде барабана считаю устаревшим примером.</li><li>Пример «18 монет, 5 ям → 13 жетонов» противоречит защите порогов, если игрок уже набрал 15. В игре применена защита.</li><li>8 секторов, недостающие номиналы, состав сегментов и порядок офферов демонстрационные. Кофе −50%, масло −15% и +300 баллов взяты из документа.</li><li>Офферы заранее назначены по дню и демо-сегменту. Вероятности и повторения документ не уточняет: в прототипе выпадают разные офферы.</li><li>24 часа считаются с получения приза. Новый заезд — после смены календарного дня по времени устройства.</li><li>Пауза и автопилот добавлены для изучения прототипа.</li><li>Нет передачи хеша, аналитики, серверного подсчёта и настоящей активации. Локально хранится только демо-приз и день получения.</li>
+</ul></details></section>
+<section class="note-panel"><h2>Последние действия</h2><ol id="event-log" class="event-log"><li>Прототип открыт.</li></ol><p class="hint">Журнал отображается здесь и никуда не отправляется.</p></section>
+</aside>
+</main>
+<dialog id="welcome-dialog" aria-labelledby="welcome-title"><div class="dialog-content"><p class="eyebrow">БОЛЬШОЙ МАРШРУТ</p><h2 id="welcome-title">Новый заезд ждёт</h2><p>60 секунд за рулём — и оффер на сегодня.</p><p>15 жетонов — 1 вращение<br>30 — 2 · 45 — 3</p><button class="primary" data-action="welcome-play">Играть</button><button data-action="welcome-close">Позже</button></div></dialog>
+<noscript>Для игры включите JavaScript. Интернет не нужен.</noscript>
+<script>
+(function () {
+  'use strict';
+  const CONFIG = Object.freeze({ duration: 60, coins: 90, holes: 8, price: 15, maxTokens: 45, maxSpins: 3, boostDuration: 10, slowDuration: 1.2, slowFactor: 0.55, spinDuration: 2600 });
+  const spinsFor = n => Math.min(CONFIG.maxSpins, Math.floor(Math.max(0, n) / CONFIG.price));
+  const dayKey = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  function makeTrack() {
+    const items = Array.from({ length: CONFIG.coins }, (_, i) => ({ type: 'coin', at: (i + 1) * CONFIG.duration / CONFIG.coins, lane: [1, 0, 2, 1, 2, 0][Math.floor(i / 4) % 6], done: false }));
+    const lanes = [1, 2, 0, 1, 0, 2, 1, 0];
+    for (let i = 0; i < CONFIG.holes; i++) items.push({ type: 'hole', at: 4.3 + i * 7.1, lane: lanes[i], done: false });
+    return items.sort((a, b) => a.at - b.at);
+  }
+  class Race {
+    constructor(onEvent = () => {}) {
+      this.tokens = 0; this.earned = 0; this.elapsed = 0; this.distance = 0; this.lane = 1;
+      this.collected = 0; this.missed = 0; this.hits = 0; this.lost = 0; this.bonus = 0;
+      this.boostUsed = false; this.boostUntil = -1; this.slowUntil = -1;
+      this.paused = false; this.finished = false; this.reason = ''; this.track = makeTrack(); this.cursor = 0; this.onEvent = onEvent;
+    }
+    get boosted() { return this.boostUsed && this.elapsed <= this.boostUntil + 1e-8; }
+    get slowed() { return this.elapsed < this.slowUntil; }
+    move(delta) { if (!this.finished && !this.paused) this.lane = Math.max(0, Math.min(2, this.lane + delta)); }
+    boost() {
+      if (this.boostUsed || this.finished || this.paused) return false;
+      this.boostUsed = true; this.boostUntil = this.elapsed + CONFIG.boostDuration; this.onEvent({ type: 'boost' }); return true;
+    }
+    collect() {
+      if (this.finished) return;
+      const amount = this.boosted ? 2 : 1;
+      this.collected++; this.bonus += amount - 1;
+      this.tokens = Math.min(CONFIG.maxTokens, this.tokens + amount);
+      const before = this.earned; this.earned = Math.max(this.earned, spinsFor(this.tokens));
+      this.onEvent({ type: 'coin', amount });
+      if (this.earned > before) this.onEvent({ type: 'threshold', spins: this.earned, tokens: this.tokens });
+      if (this.tokens >= CONFIG.maxTokens) this.finish('max');
+    }
+    hit() {
+      if (this.finished) return;
+      const before = this.tokens;
+      this.tokens = Math.max(this.earned * CONFIG.price, this.tokens - 1);
+      this.hits++; this.lost += before - this.tokens; this.slowUntil = this.elapsed + CONFIG.slowDuration;
+      this.onEvent({ type: 'hole', loss: before - this.tokens, floor: this.earned * CONFIG.price });
+    }
+    finish(reason) {
+      if (this.finished) return;
+      this.finished = true; this.reason = reason; this.paused = false; this.onEvent({ type: 'finish', reason });
+    }
+    step(dt, autopilot = false) {
+      if (this.finished || this.paused || dt <= 0) return;
+      // Fixed small steps also preserve collisions when a render frame is late.
+      let left = Math.min(dt, Math.max(0, CONFIG.duration - this.elapsed));
+      while (left > 1e-8 && !this.finished) {
+        const slice = Math.min(left, 1 / 120); left -= slice;
+        this.distance += slice * (this.slowed ? CONFIG.slowFactor : 1);
+        this.elapsed = Math.min(CONFIG.duration, this.elapsed + slice);
+        while (this.cursor < this.track.length && this.track[this.cursor].at <= this.distance + 1e-8 && !this.finished) {
+          const item = this.track[this.cursor++]; item.done = true;
+          if (autopilot) {
+            if (item.type === 'coin') this.lane = item.lane;
+            else if (item.lane === this.lane) this.lane = (item.lane + 1) % 3;
+          }
+          if (item.lane === this.lane) {
+            if (item.type === 'coin') this.collect(); else this.hit();
+          } else if (item.type === 'coin') this.missed++;
+        }
+      }
+      if (!this.finished && this.elapsed >= CONFIG.duration - 1e-8) { this.elapsed = CONFIG.duration; this.finish('time'); }
+    }
+  }
+  const OFFERS = Object.freeze({
+    coffee: { id: 'coffee', short: 'Кофе', benefit: 'Скидка 50%', wheel: '−50%', title: 'Кофе 100% арабика', terms: 'Демонстрационный оффер на один кофе на АЗС.' },
+    oil: { id: 'oil', short: 'Масло', benefit: 'Скидка 15%', wheel: '−15%', title: 'Масло LUKOIL GENESIS', terms: 'Демонстрационный оффер на моторное масло.' },
+    wash: { id: 'wash', short: 'Мойка', benefit: 'Скидка 20%', wheel: '−20%', title: 'Мойка автомобиля', terms: 'Демо-номинал: условия в презентации не заданы.' },
+    points: { id: 'points', short: 'Баллы', benefit: '+300 баллов', wheel: '+300', title: '«Заправься выгодой»', terms: 'Демо-приз. Игровые жетоны не являются баллами программы.' },
+    status: { id: 'status', short: 'Статус', benefit: '+1 уровень', wheel: '+1', title: 'Повышение статуса', terms: 'Демо-пример сектора «статус», без реального повышения.' },
+    snack: { id: 'snack', short: 'Перекус', benefit: 'Скидка 15%', wheel: '−15%', title: 'Перекус в кафе', terms: 'Демо-номинал: условия в презентации не заданы.' },
+    shop: { id: 'shop', short: 'Магазин', benefit: 'Скидка 10%', wheel: '−10%', title: 'Покупка в магазине АЗС', terms: 'Демо-номинал: условия в презентации не заданы.' },
+    partner: { id: 'partner', short: 'Партнёр', benefit: 'Скидка 20%', wheel: '−20%', title: 'Оффер партнёра', terms: 'Демо-пример партнёрского предложения.' },
+    tea: { id: 'tea', short: 'Чай', benefit: 'Скидка 30%', wheel: '−30%', title: 'Чай в кафе', terms: 'Демонстрационный оффер.' },
+    bakery: { id: 'bakery', short: 'Выпечка', benefit: 'Скидка 20%', wheel: '−20%', title: 'Выпечка в кафе', terms: 'Демонстрационный оффер.' },
+    drink: { id: 'drink', short: 'Напиток', benefit: 'Скидка 10%', wheel: '−10%', title: 'Напиток из магазина', terms: 'Демонстрационный оффер.' },
+    fluid: { id: 'fluid', short: 'Омывайка', benefit: 'Скидка 10%', wheel: '−10%', title: 'Стеклоомывающая жидкость', terms: 'Демонстрационный оффер.' },
+    care: { id: 'care', short: 'Уход', benefit: 'Скидка 15%', wheel: '−15%', title: 'Средство для ухода за авто', terms: 'Демонстрационный оффер.' }
+  });
+  const POOLS = Object.freeze({ mixed: ['coffee', 'oil', 'wash', 'points', 'status', 'snack', 'shop', 'partner'], cafe: ['coffee', 'tea', 'snack', 'bakery', 'points', 'drink', 'shop', 'partner'], car: ['oil', 'wash', 'points', 'status', 'fluid', 'care', 'shop', 'partner'] });
+  function rewardQueue(day, segment) {
+    const pool = POOLS[segment] || POOLS.mixed;
+    const seed = [...day + segment].reduce((n, ch) => (n * 31 + ch.charCodeAt(0)) >>> 0, 0);
+    const start = seed % 8;
+    return [0, 3, 6].map(offset => ({ index: (start + offset) % 8, offer: OFFERS[pool[(start + offset) % 8]] }));
+  }
+  const wheelTarget = (previous, index) => {
+    const desired = (360 - (index * 45 + 22.5)) % 360;
+    const current = ((previous % 360) + 360) % 360;
+    return previous + 4 * 360 + (desired - current + 360) % 360;
+  };
+  const api = { CONFIG, Race, spinsFor, dayKey, makeTrack, OFFERS, POOLS, rewardQueue, wheelTarget };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  if (typeof document === 'undefined') return;
+  window.RouteGame = api;
+
+  const $ = id => document.getElementById(id);
+  const labels = { home: 'Вход', race: 'Заезд', finish: 'Финиш', wheel: 'Барабан', choice: 'Выбор', claimed: 'Приз', cabinet: 'Демо-кабинет' };
+  const state = { screen: 'home', race: null, bank: 0, totalSpins: 0, remaining: 0, drops: [], selection: null, spinning: false, angle: 0, pool: 'mixed', queue: [], claim: null, day: dayKey(), demo: false };
+  let frameId = 0, lastFrame = 0, spinTimer = 0, statusUntil = 0, popupDay = '', memoryOnly = false;
+  const storageKey = 'big-route-offline-v1';
+  const log = [];
+  function addLog(message) {
+    log.unshift(message); if (log.length > 14) log.pop();
+    $('event-log').replaceChildren(...log.map(text => { const li = document.createElement('li'); li.textContent = text; return li; }));
+  }
+  function save() {
+    try { localStorage.setItem(storageKey, JSON.stringify({ version: 1, claim: state.claim, popupDay })); }
+    catch (_) { memoryOnly = true; $('storage-note').textContent = 'Браузер запретил локальное хранение. Приз и ограничение сохраняются только до закрытия этой страницы.'; }
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    if (saved && saved.version === 1) {
+      popupDay = typeof saved.popupDay === 'string' ? saved.popupDay : '';
+      const c = saved.claim;
+      if (c && OFFERS[c.offerId] && /^\d{4}-\d{2}-\d{2}$/.test(c.day) && Number.isFinite(c.at) && Number.isFinite(c.expires) && c.expires === c.at + 86400000) state.claim = c;
+    }
+  } catch (_) { memoryOnly = true; $('storage-note').textContent = 'Локальное хранение недоступно. Можно пройти весь сценарий, пока страница открыта.'; }
+  const locked = () => !!state.claim && state.claim.day === dayKey();
+  function stopRace() { cancelAnimationFrame(frameId); frameId = 0; lastFrame = 0; }
+  function closePopup() { if ($('welcome-dialog').open) $('welcome-dialog').close(); }
+  function setScreen(screen) {
+    if (screen !== 'race') stopRace();
+    state.screen = screen;
+    document.querySelectorAll('[data-screen]').forEach(el => { el.hidden = el.dataset.screen !== screen; });
+    document.querySelectorAll('[data-step]').forEach(el => {
+      if (el.dataset.step === (screen === 'cabinet' ? 'claimed' : screen)) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current');
+    });
+    $('screen-label').textContent = labels[screen];
+    $('segment').disabled = !['home', 'finish'].includes(screen) || locked();
+    if (screen === 'home') refreshHome();
+    updateDemoButtons(); updateLogic();
+    const heading = document.querySelector(`[data-screen="${screen}"] h2`);
+    if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+  }
+  function refreshHome() {
+    $('start-button').disabled = locked(); $('home-lock').hidden = !locked(); $('home-cabinet').hidden = !state.claim;
+    $('home-lock').textContent = 'Сегодняшний оффер уже у вас. Новый заезд — завтра.';
+    $('start-button').textContent = locked() ? 'Новый заезд завтра' : 'Играть';
+  }
+  function updateDemoButtons() {
+    document.querySelectorAll('[data-demo]').forEach(el => { el.disabled = state.spinning || locked(); });
+    $('reset-button').disabled = state.spinning;
+  }
+  function updateLogic() {
+    const r = state.race;
+    const descriptions = {
+      home: ['Вход в игру', locked() ? 'Приз сегодня уже получен. Ограничение хранится только в этом браузере. Для повторной проверки можно сбросить демо.' : 'Кнопка «Играть» запускает заезд. Регистрации нет. Первая прокрутка появится только после 15 жетонов.'],
+      race: ['Монеты превращаются в жетоны', 'Перестраивайтесь на полосу с монетой. ЭКТО удваивает сбор на 10 секунд. Яма отнимает один жетон и замедляет машину, но не отнимает уже заработанное вращение.'],
+      finish: ['Жетоны определяют число вращений', r && r.tokens < 15 ? 'Не достигнут первый порог — барабан недоступен. Можно сразу начать новый заезд.' : 'Результат зафиксирован. Каждые полные 15 жетонов дают одно вращение, максимум три. Досрочная остановка не выдаёт приз автоматически.'],
+      wheel: ['Барабан раскрывает назначенный оффер', 'Офферы уже выбраны из демо-пула этого сегмента. При нажатии расходуются 15 жетонов и одно вращение. Колесо останавливается на секторе с этим оффером. Каждый результат добавляется в список.'],
+      choice: ['Несколько офферов — один приз', state.drops.length === 1 ? 'Выпал единственный оффер, он выбран автоматически. Остаётся нажать «Забрать приз».' : 'Выберите один из выпавших офферов. Только выбранный станет призом; остальные не переносятся на завтра.'],
+      claimed: ['Приз получен, сегодняшний цикл завершён', 'Остался один выбранный оффер. Жетоны и вращения обнулены. Приз действует 24 часа, а новый заезд доступен после смены календарного дня. Здесь получение имитируется локально.'],
+      cabinet: ['Локальный аналог личного кабинета', 'Показан единственный полученный приз. Данные не отправлялись в ЛУКОЙЛ; код активации и QR не создаются.' ]
+    };
+    $('logic-title').textContent = descriptions[state.screen][0]; $('logic-description').textContent = descriptions[state.screen][1];
+    let text = '15 / 30 / 45 жетонов → 1 / 2 / 3 вращения';
+    if (state.screen === 'race' && r) text = `${r.tokens} жетонов · ${r.earned} из 3 вращений\nЗащищённый минимум: ${r.earned * 15} жетонов\nСобрано монет: ${r.collected} · попаданий в ямы: ${r.hits}`;
+    if (state.screen === 'finish' && r) text = `${r.tokens} жетонов = ${spinsFor(r.tokens)} вращений\nОстаток после обмена: ${r.tokens % 15} жетонов${state.demo ? '\nЭто быстрый демонстрационный результат.' : ''}`;
+    if (state.screen === 'wheel' || state.screen === 'choice') text = `${state.bank} жетонов осталось · ${state.remaining} вращений осталось\nОткрыто офферов: ${state.drops.length} / ${state.totalSpins} · забрать можно 1`;
+    if (state.screen === 'claimed' || state.screen === 'cabinet') text = 'Баланс: 0 жетонов · 0 вращений\nПолучен один демо-приз. Настоящей активации нет.';
+    $('logic-numbers').textContent = text; $('logic-numbers').style.whiteSpace = 'pre-line';
+  }
+  function raceEvent(event) {
+    if (event.type === 'boost') { addLog('ЭКТО: следующие 10 секунд одна монета даёт 2 жетона.'); raceStatus('ЭКТО ×2 · ямы продолжают действовать', 2); }
+    if (event.type === 'threshold') { addLog(`Порог ${event.spins * 15}: заработано вращений — ${event.spins}.`); raceStatus(`Заработано вращений: ${event.spins} / 3`, 1.6); }
+    if (event.type === 'hole') { addLog(event.loss ? `Яма: −1 жетон, осталось ${state.race.tokens}. Скорость временно снижена.` : `Яма: порог ${event.floor} защищён, жетоны не списаны. Машина замедлилась.`); raceStatus(event.loss ? 'Яма: −1 жетон · замедление' : 'Яма: вращение защищено · замедление', 1.5); }
+  }
+  function raceStatus(text, duration) { $('road-status').textContent = text; statusUntil = state.race.elapsed + duration; }
+  function startRace() {
+    if (locked() || state.spinning) return;
+    closePopup(); stopRace(); state.day = dayKey(); state.demo = false;
+    state.bank = 0; state.totalSpins = 0; state.remaining = 0; state.drops = []; state.selection = null;
+    state.pool = $('segment').value; state.race = new Race(raceEvent); statusUntil = 0;
+    $('pause-overlay').hidden = true; $('pause-button').textContent = 'Пауза';
+    setScreen('race'); addLog('Начался новый заезд: до 60 секунд, максимум 45 жетонов.');
+    updateRaceHud(); drawRoad(); $('road').focus({ preventScroll: true }); frameId = requestAnimationFrame(loop);
+  }
+  function loop(now) {
+    if (state.screen !== 'race') return;
+    const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 1) : 0; lastFrame = now;
+    state.race.step(dt, $('autopilot').checked);
+    drawRoad(); updateRaceHud();
+    if (state.race.finished) { finishScreen(); return; }
+    frameId = requestAnimationFrame(loop);
+  }
+  function updateRaceHud() {
+    const r = state.race; $('tokens').textContent = r.tokens; $('earned').textContent = `${r.earned} / 3`;
+    const remaining = Math.max(0, Math.ceil(CONFIG.duration - r.elapsed - 1e-7));
+    $('timer').textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
+    $('token-fill').style.width = `${r.tokens / 45 * 100}%`;
+    $('next-threshold').textContent = r.earned === 3 ? 'Все три вращения заработаны' : `Ещё ${(r.earned + 1) * 15 - r.tokens} жетонов до ${['первого', 'второго', 'третьего'][r.earned]} вращения`;
+    $('early-button').disabled = r.tokens < 15 || r.paused;
+    $('ekto-button').disabled = r.boostUsed || r.paused;
+    $('ekto-button').textContent = r.boosted ? `ЭКТО ×2 · ещё ${Math.ceil(r.boostUntil - r.elapsed)} с` : r.boostUsed ? 'ЭКТО использован в этом заезде' : 'Заправиться ЭКТО · ×2 на 10 секунд';
+    if (r.elapsed >= statusUntil) $('road-status').textContent = r.boosted ? 'ЭКТО: монета = 2 жетона' : r.slowed ? 'Скорость временно снижена' : 'Монета = 1 жетон';
+    updateLogic();
+  }
+  function drawRoad() {
+    const r = state.race, canvas = $('road'), ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const centers = [88, 180, 272];
+    ctx.clearRect(0, 0, 360, 480); ctx.fillStyle = '#f4f4f4'; ctx.fillRect(0, 0, 360, 480);
+    ctx.fillStyle = '#fff'; ctx.fillRect(42, 0, 276, 480);
+    ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(42, 0); ctx.lineTo(42, 480); ctx.moveTo(318, 0); ctx.lineTo(318, 480); ctx.stroke();
+    ctx.strokeStyle = '#aaa'; ctx.setLineDash([20, 22]); ctx.lineDashOffset = -r.distance * 150 % 42;
+    ctx.beginPath(); ctx.moveTo(134, 0); ctx.lineTo(134, 480); ctx.moveTo(226, 0); ctx.lineTo(226, 480); ctx.stroke(); ctx.setLineDash([]);
+    const signY = (r.distance * 70) % 650 - 110;
+    ctx.save(); ctx.translate(19, signY); ctx.rotate(-Math.PI / 2); ctx.fillStyle = '#555'; ctx.font = '11px Arial'; ctx.textAlign = 'center'; ctx.fillText('АЗС ЛУКОЙЛ', 0, 0); ctx.restore();
+    ctx.save(); ctx.translate(341, (signY + 300) % 650); ctx.rotate(-Math.PI / 2); ctx.fillStyle = '#666'; ctx.font = '11px Arial'; ctx.textAlign = 'center'; ctx.fillText('Заправься выгодой', 0, 0); ctx.restore();
+    for (const item of r.track) {
+      const y = 415 - (item.at - r.distance) * 150;
+      if (item.done || y < -25 || y > 450) continue;
+      const x = centers[item.lane]; ctx.beginPath();
+      if (item.type === 'coin') {
+        ctx.fillStyle = '#fff'; ctx.strokeStyle = '#111'; ctx.lineWidth = 2; ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#111'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center'; ctx.fillText('1', x, y + 5);
+      } else {
+        ctx.fillStyle = '#222'; ctx.ellipse(x, y, 23, 12, 0, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = '#888'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = '#fff'; ctx.font = '10px Arial'; ctx.textAlign = 'center'; ctx.fillText('ЯМА', x, y + 4);
+      }
+    }
+    const x = centers[r.lane], y = 415;
+    if (r.boosted) { ctx.strokeStyle = '#222'; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.strokeRect(x - 29, y - 41, 58, 76); ctx.setLineDash([]); }
+    ctx.fillStyle = '#111'; ctx.fillRect(x - 26, y - 23, 8, 17); ctx.fillRect(x + 18, y - 23, 8, 17); ctx.fillRect(x - 26, y + 10, 8, 16); ctx.fillRect(x + 18, y + 10, 8, 16);
+    ctx.fillStyle = '#555'; ctx.fillRect(x - 21, y - 34, 42, 66); ctx.strokeStyle = '#111'; ctx.lineWidth = 2; ctx.strokeRect(x - 21, y - 34, 42, 66);
+    ctx.fillStyle = '#fff'; ctx.fillRect(x - 16, y - 29, 8, 5); ctx.fillRect(x + 8, y - 29, 8, 5); ctx.fillRect(x - 15, y - 15, 30, 13);
+    ctx.fillStyle = '#ccc'; ctx.fillRect(x - 14, y + 15, 28, 8);
+    if ($('autopilot').checked) { ctx.fillStyle = '#333'; ctx.font = '12px Arial'; ctx.textAlign = 'center'; ctx.fillText('АВТОПИЛОТ · ДЕМО', 180, 22); }
+  }
+  function finishScreen() {
+    const r = state.race; stopRace(); const k = spinsFor(r.tokens);
+    $('finish-tokens').textContent = r.tokens; $('finish-spins').textContent = `${k} ${k === 0 ? 'вращений' : k === 1 ? 'вращение' : 'вращения'}${k === 0 ? '' : ' барабана'}`;
+    const reasons = { max: 'Достигнут максимум — 45 жетонов. Заезд завершился автоматически.', time: '60 секунд истекли.', early: 'Вы завершили заезд досрочно.', demo: 'Быстрый пример: результат заезда подставлен для проверки логики.' };
+    $('finish-description').textContent = k === 0 ? `${reasons[r.reason]} До первого вращения не хватило ${15 - r.tokens} жетонов. Попробуйте ещё раз!` : `${reasons[r.reason]} Теперь откройте ${k} ${k === 1 ? 'оффер' : 'оффера'} и заберите один.`;
+    $('exchange-button').hidden = k === 0;
+    $('race-summary').replaceChildren();
+    const rows = state.demo ? [['Тип', 'Демо-пример'], ['Вращения', k]] : [['Время заезда', `${r.elapsed.toFixed(1)} с`], ['Собрано монет', r.collected], ['Бонус от ЭКТО', `+${r.bonus} жетонов`], ['Попаданий в ямы', r.hits], ['Потеряно на ямах', `${r.lost} жетонов`]];
+    rows.forEach(([name, value]) => { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = name; dd.textContent = value; $('race-summary').append(dt, dd); });
+    setScreen('finish'); addLog(`Финиш: ${r.tokens} жетонов → ${k} вращений${state.demo ? ' (демо-пример)' : ''}.`);
+  }
+  function demoResult(n) {
+    if (locked() || state.spinning) return;
+    closePopup(); stopRace(); state.pool = $('segment').value; state.day = dayKey(); state.demo = true;
+    state.race = new Race(); state.race.tokens = n; state.race.earned = spinsFor(n); state.race.finished = true; state.race.reason = 'demo';
+    state.bank = 0; state.remaining = 0; state.drops = []; state.selection = null; finishScreen();
+  }
+  function exchange() {
+    if (state.screen !== 'finish' || !state.race || locked()) return;
+    const k = spinsFor(state.race.tokens); if (!k) return;
+    state.pool = $('segment').value; state.queue = rewardQueue(state.day, state.pool);
+    state.bank = state.race.tokens; state.totalSpins = k; state.remaining = k; state.drops = []; state.selection = null; state.angle = 0;
+    drawWheel(); $('spin-result').textContent = 'Нажмите «Вращать», чтобы открыть первый оффер.';
+    setScreen('wheel'); updateWheel(); addLog(`${state.bank} жетонов дают ${k} вращений. Офферы назначены из демо-пула.`);
+  }
+  function svgEl(name, attrs, text) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', name);
+    Object.entries(attrs).forEach(([key, val]) => el.setAttribute(key, val)); if (text !== undefined) el.textContent = text; return el;
+  }
+  function drawWheel() {
+    const rotor = $('wheel-rotor'); rotor.style.transition = 'none'; rotor.style.transform = 'rotate(0deg)'; rotor.replaceChildren(); $('sector-list').replaceChildren();
+    POOLS[state.pool].forEach((id, index) => {
+      const offer = OFFERS[id], a = (-90 + index * 45) * Math.PI / 180, b = a + Math.PI / 4, mid = (a + b) / 2, radius = 184;
+      const x1 = 200 + radius * Math.cos(a), y1 = 220 + radius * Math.sin(a), x2 = 200 + radius * Math.cos(b), y2 = 220 + radius * Math.sin(b);
+      rotor.append(svgEl('path', { d: `M200 220 L${x1} ${y1} A${radius} ${radius} 0 0 1 ${x2} ${y2} Z`, fill: index % 2 ? '#e4e4e4' : '#fff', stroke: '#222', 'stroke-width': 1.5 }));
+      const tx = 200 + 119 * Math.cos(mid), ty = 220 + 119 * Math.sin(mid);
+      const text = svgEl('text', { x: tx, y: ty - 10, 'text-anchor': 'middle', 'font-size': 14, fill: '#111' });
+      text.append(svgEl('tspan', { x: tx, dy: 0, 'font-weight': 700 }, `${index + 1}. ${offer.short}`));
+      text.append(svgEl('tspan', { x: tx, dy: 20 }, offer.wheel)); rotor.append(text);
+      const li = document.createElement('li'); li.textContent = `${offer.title} · ${offer.benefit}`; $('sector-list').append(li);
+    });
+  }
+  function updateWheel() {
+    $('bank').textContent = state.bank; $('remaining-spins').textContent = state.remaining;
+    $('spin-button').hidden = state.remaining === 0 && !state.spinning; $('spin-button').disabled = state.spinning || state.remaining === 0;
+    $('spin-button').textContent = state.spinning ? 'Барабан вращается…' : 'Вращать · 15 жетонов';
+    $('choose-button').hidden = state.remaining > 0 || state.spinning; $('wheel-replay').disabled = state.spinning;
+    const list = $('dropped-offers'); list.replaceChildren();
+    if (state.drops.length) { const heading = document.createElement('h3'); heading.textContent = `Выпавшие офферы: ${state.drops.length}`; list.append(heading); }
+    state.drops.forEach((offer, i) => { const el = document.createElement('div'); el.className = 'small-offer'; el.textContent = `${i + 1}. ${offer.title} · ${offer.benefit}`; list.append(el); });
+    updateDemoButtons(); updateLogic();
+  }
+  function spin() {
+    if (state.screen !== 'wheel' || state.spinning || state.remaining < 1 || state.bank < CONFIG.price || locked()) return;
+    const result = state.queue[state.drops.length]; if (!result) return;
+    state.spinning = true; state.remaining--; state.bank -= CONFIG.price;
+    $('spin-result').textContent = 'Открываем оффер…'; updateWheel();
+    const rotor = $('wheel-rotor'); state.angle = wheelTarget(state.angle, result.index);
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const duration = reduced ? 30 : CONFIG.spinDuration;
+    rotor.style.transition = `transform ${duration}ms cubic-bezier(.12,.7,.13,1)`;
+    // Flush the starting position before assigning the target rotation.
+    rotor.getBoundingClientRect(); rotor.style.transform = `rotate(${state.angle}deg)`;
+    spinTimer = setTimeout(() => {
+      state.spinning = false; state.drops.push(result.offer);
+      $('spin-result').textContent = `Сектор ${result.index + 1}: ${result.offer.title} · ${result.offer.benefit}`;
+      addLog(`Вращение ${state.drops.length}: −15 жетонов → ${result.offer.title}, ${result.offer.benefit}.`); updateWheel();
+      if (!state.remaining) $('choose-button').focus({ preventScroll: true });
+    }, duration + 40);
+  }
+  function choose() {
+    if (state.screen !== 'wheel' || state.remaining || state.spinning || !state.drops.length) return;
+    state.selection = state.drops.length === 1 ? 0 : null;
+    $('choice-description').textContent = state.drops.length === 1 ? 'Выпал один оффер — он уже выбран. Можно забрать приз.' : `Выпало ${state.drops.length} оффера. Забрать можно один. Выберите карточку.`;
+    const options = $('offer-options'); options.replaceChildren();
+    state.drops.forEach((offer, i) => {
+      const label = document.createElement('label'); label.className = 'offer-card offer-option';
+      const input = document.createElement('input'); input.type = 'radio'; input.name = 'offer'; input.value = i; input.checked = state.selection === i;
+      input.addEventListener('change', () => { state.selection = i; $('claim-button').disabled = false; addLog(`Выбран оффер: ${offer.title}.`); });
+      const content = document.createElement('div'), title = document.createElement('strong'), benefit = document.createElement('span'), terms = document.createElement('span');
+      title.textContent = offer.title; benefit.textContent = offer.benefit; terms.textContent = offer.terms; terms.className = 'hint'; content.append(title, benefit, terms); label.append(input, content); options.append(label);
+    });
+    $('claim-button').disabled = state.selection === null; setScreen('choice');
+  }
+  function offerCard(target, offer) {
+    target.replaceChildren(); const title = document.createElement('h3'), benefit = document.createElement('p'), terms = document.createElement('p');
+    title.textContent = offer.title; benefit.className = 'offer-benefit'; benefit.textContent = offer.benefit; terms.className = 'hint'; terms.textContent = offer.terms; target.append(title, benefit, terms);
+  }
+  function expiryText() {
+    if (!state.claim) return '';
+    const remaining = state.claim.expires - Date.now();
+    const when = new Date(state.claim.expires).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    if (remaining <= 0) return `Срок демо-оффера истёк ${when}.`;
+    return `Действует до ${when} · осталось ${Math.floor(remaining / 3600000)} ч ${Math.floor(remaining % 3600000 / 60000)} мин.`;
+  }
+  function renderClaim() {
+    if (!state.claim) return;
+    const offer = OFFERS[state.claim.offerId]; offerCard($('claimed-offer'), offer); offerCard($('cabinet-offer'), offer);
+    $('claim-expiry').textContent = expiryText(); $('cabinet-expiry').textContent = expiryText();
+  }
+  function claim() {
+    if (state.screen !== 'choice' || state.selection === null || !state.drops[state.selection] || locked()) return;
+    const offer = state.drops[state.selection], at = Date.now();
+    state.claim = { offerId: offer.id, at, expires: at + 86400000, day: dayKey() };
+    state.bank = 0; state.remaining = 0; state.totalSpins = 0; state.drops = []; state.selection = null;
+    if (state.race) { state.race.tokens = 0; state.race.earned = 0; }
+    save(); renderClaim(); setScreen('claimed'); addLog(`Получен один демо-приз: ${offer.title}. Баланс обнулён, новый заезд завтра.`);
+  }
+  function pause() {
+    if (state.screen !== 'race' || state.race.finished) return;
+    state.race.paused = !state.race.paused; lastFrame = 0;
+    $('pause-overlay').hidden = !state.race.paused; $('pause-button').textContent = state.race.paused ? 'Продолжить' : 'Пауза'; updateRaceHud();
+  }
+  function reset() {
+    if (state.spinning) return;
+    stopRace(); clearTimeout(spinTimer); closePopup(); state.claim = null; state.race = null; state.bank = 0; state.totalSpins = 0; state.remaining = 0; state.drops = []; state.selection = null; popupDay = dayKey();
+    save(); setScreen('home'); addLog('Демо сброшено: можно заново пройти полный сценарий.');
+  }
+  function move(delta) { if (state.screen === 'race') { state.race.move(delta); drawRoad(); } }
+  const actions = {
+    start: startRace, replay: startRace, left: () => move(-1), right: () => move(1), pause,
+    ekto: () => { if (state.screen === 'race') { state.race.boost(); updateRaceHud(); } },
+    early: () => { if (state.screen === 'race' && state.race.tokens >= 15 && !state.race.paused) { state.race.finish('early'); addLog('Нажато «Забрать приз сейчас»: заезд остановлен.'); finishScreen(); } },
+    exchange, spin, choose, claim, reset,
+    home: () => { closePopup(); setScreen('home'); },
+    cabinet: () => { if (state.claim) { renderClaim(); setScreen('cabinet'); } },
+    'welcome-play': () => { closePopup(); startRace(); }, 'welcome-close': closePopup
+  };
+  document.querySelectorAll('[data-action]').forEach(el => el.addEventListener('click', () => { if (!el.disabled) actions[el.dataset.action](); }));
+  document.querySelectorAll('[data-demo]').forEach(el => el.addEventListener('click', () => demoResult(Number(el.dataset.demo))));
+  $('segment').addEventListener('change', () => { state.pool = $('segment').value; addLog(`Выбран демо-пул: ${$('segment').selectedOptions[0].textContent}.`); });
+  $('autopilot').addEventListener('change', () => { addLog($('autopilot').checked ? 'Автопилот включён для просмотра механики.' : 'Автопилот выключен: управление вручную.'); });
+  document.addEventListener('keydown', event => {
+    if (state.screen !== 'race' || /INPUT|SELECT|TEXTAREA/.test(event.target.tagName)) return;
+    const key = event.key.toLowerCase();
+    if (key === ' ' && event.target.closest('button')) return;
+    if (['arrowleft', 'arrowright', 'a', 'd', 'ф', 'в', 'e', 'у', ' '].includes(key)) event.preventDefault();
+    if (key === 'arrowleft' || key === 'a' || key === 'ф') move(-1);
+    if (key === 'arrowright' || key === 'd' || key === 'в') move(1);
+    if (key === 'e' || key === 'у') actions.ekto();
+    if (key === ' ' && !event.repeat) pause();
+  });
+  let pointerX = null;
+  $('road').addEventListener('pointerdown', event => { pointerX = event.clientX; $('road').setPointerCapture(event.pointerId); $('road').focus({ preventScroll: true }); });
+  $('road').addEventListener('pointermove', event => { if (pointerX === null) return; const difference = event.clientX - pointerX; if (Math.abs(difference) >= 28) { move(difference > 0 ? 1 : -1); pointerX = event.clientX; } });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) $('road').addEventListener(type, () => { pointerX = null; });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && state.screen === 'race' && !state.race.paused) pause(); });
+  setInterval(() => {
+    if (state.screen === 'home' && !state.spinning) { refreshHome(); updateDemoButtons(); $('segment').disabled = locked(); updateLogic(); }
+    if (state.screen === 'claimed' || state.screen === 'cabinet') renderClaim();
+  }, 15000);
+  if (memoryOnly) save();
+  addLog('Прототип открыт. Все вычисления выполняются в браузере.'); setScreen('home'); renderClaim();
+  if (popupDay !== dayKey() && !locked()) {
+    popupDay = dayKey(); save();
+    if (typeof $('welcome-dialog').showModal === 'function') $('welcome-dialog').showModal();
+  }
+})();
+
+</script>
+</body></html>
