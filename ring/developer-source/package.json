@@ -1,0 +1,15 @@
+{
+  "name": "ring-bright-studio-viewer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "three": "0.178.0",
+    "three-mesh-bvh": "0.9.15"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

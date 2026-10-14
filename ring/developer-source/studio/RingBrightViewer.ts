@@ -1,13 +1,13 @@
 import {
-  ACESFilmicToneMapping, BackSide, Box3, CanvasTexture, Color, CubeCamera, DoubleSide, Group,
-  FileLoader, HalfFloatType, LinearFilter, Mesh, MeshBasicMaterial, MeshPhysicalMaterial,
-  PerspectiveCamera, PlaneGeometry, PMREMGenerator, Scene, ShaderMaterial,
-  SphereGeometry, SRGBColorSpace, Vector3, WebGLCubeRenderTarget, WebGLRenderer,
+  ACESFilmicToneMapping, Box3, Group, FileLoader, Mesh, MeshPhysicalMaterial,
+  PerspectiveCamera, PMREMGenerator, Scene, ShaderMaterial,
+  SRGBColorSpace, Vector3, WebGLRenderer,
 } from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader.js';
-import {diamondMaterial, updateDiamond} from './DiamondMaterial';
+import {diamondMaterial, updateDiamond} from '../DiamondMaterial';
+import {brightStudioSettings, createBrightEnvironment} from './createBrightEnvironment';
 
 type ViewerDebug = {
   ready: boolean; error?: string; loadMs?: number; angle?: number;
@@ -57,64 +57,12 @@ async function start() {
   controls.zoomSpeed = 0.7;
   controls.saveState();
 
-  function studio(gems: boolean) {
-    const environment = new Scene();
-    const surround = new Mesh(new SphereGeometry(20, 32, 16), new ShaderMaterial({
-      side: BackSide,
-      uniforms: {gem: {value: gems}},
-      vertexShader: 'varying vec3 direction; void main(){direction=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-      fragmentShader: `varying vec3 direction; uniform bool gem;
-        void main(){vec3 d=normalize(direction);float v;
-          if(gem){v=mix(0.045,0.56,1.0-smoothstep(-0.85,-0.05,d.y));v+=0.17*smoothstep(0.0,0.9,d.y);}
-          else{v=mix(0.055,0.95,1.0-smoothstep(-0.85,-0.05,d.y));v+=0.16*smoothstep(0.0,0.9,d.y);}
-          gl_FragColor=vec4(vec3(v),1.0);
-        }`,
-      toneMapped: false,
-    }));
-    environment.add(surround);
-    const gradientCanvas = document.createElement('canvas');gradientCanvas.width = 512;gradientCanvas.height = 32;
-    const context = gradientCanvas.getContext('2d')!;
-    const gradient = context.createLinearGradient(0, 0, 512, 0);
-    gradient.addColorStop(0, '#656565');gradient.addColorStop(0.18, '#d6d6d6');
-    gradient.addColorStop(0.46, '#ffffff');gradient.addColorStop(0.72, '#eeeeee');gradient.addColorStop(1, '#898989');
-    context.fillStyle = gradient;context.fillRect(0, 0, 512, 32);
-    const softbox = new CanvasTexture(gradientCanvas);softbox.colorSpace = SRGBColorSpace;
-    const cards = gems ? [
-      [[-4, 4, 4], [3, 5], [3.2, 3.3, 3.45]],
-      [[4, 2, 3], [1.6, 5], [3.8, 3.9, 4.0]],
-      [[0, 5, -1], [5, 3.5], [3.0, 3.0, 3.0]],
-      [[-3, 0, -5], [2.2, 5], [2.3, 2.5, 2.7]],
-      [[3, -2, -4], [2.0, 4], [2.4, 2.3, 2.1]],
-      [[0, -5, 1], [5, 5], [1.35, 1.35, 1.35]],
-      [[1, 1, 5], [0.38, 6], [0.015, 0.02, 0.03]],
-    ] : [
-      [[-4, 3, 4], [4.0, 6], [2.6, 2.6, 2.6]],
-      [[4, 1, 2], [1.4, 6], [2.1, 2.2, 2.3]],
-      [[0, 5, -1], [5.5, 4], [2.4, 2.4, 2.4]],
-      [[-3, 1, -4], [3.5, 6], [1.5, 1.6, 1.7]],
-      [[3, -2, -4], [2.5, 5], [1.35, 1.35, 1.35]],
-      [[0, -4, 2], [6, 5], [1.6, 1.6, 1.6]],
-      [[1, 1, 5], [0.4, 6], [0.006, 0.007, 0.008]],
-    ];
-    for (const [position, size, rgb] of cards) {
-      const card = new Mesh(new PlaneGeometry(size[0], size[1]), new MeshBasicMaterial({
-        color: new Color().setRGB(rgb[0], rgb[1], rgb[2]), map: softbox, side: DoubleSide, toneMapped: false,
-      }));
-      card.position.set(position[0], position[1], position[2]);card.lookAt(0, 0, 0);environment.add(card);
-    }
-    return environment;
-  }
   const pmrem = new PMREMGenerator(renderer);
-  const metalStudio = studio(false);
-  const metalEnv = pmrem.fromScene(metalStudio, 0.045).texture;
+  const brightEnvironment = createBrightEnvironment(renderer, pmrem);
+  const metalEnv = brightEnvironment.metal;
+  const gemEnv = brightEnvironment.diamonds;
   scene.environment = metalEnv;
-  const gemStudio = studio(true);
-  const cubeTarget = new WebGLCubeRenderTarget(512, {type: HalfFloatType, minFilter: LinearFilter, magFilter: LinearFilter});
-  new CubeCamera(0.1, 100, cubeTarget).update(renderer, gemStudio);
   pmrem.dispose();
-  for (const room of [metalStudio, gemStudio]) room.traverse((o) => {
-    if (o instanceof Mesh) {o.geometry.dispose();(o.material as MeshBasicMaterial).dispose();}
-  });
 
   status.textContent = 'Подготавливаю кольцо…';
   const embedded = document.querySelector('#ring-data')?.textContent?.trim();
@@ -136,19 +84,20 @@ async function start() {
     if (!(o instanceof Mesh)) return;
     if (o.userData.role === 'diamond' || o.name.startsWith('Diamond')) {
       const hero = o.userData.hero === true || o.name.includes('Centre');
-      const material = diamondMaterial(o.geometry, cubeTarget.texture, hero);
+      const material = diamondMaterial(o.geometry, gemEnv, hero);
       o.material = material;diamonds.push({mesh: o, material, hero});
     } else {
       const material = o.material as MeshPhysicalMaterial;
       material.envMap = metalEnv;material.envMapIntensity = 1;
       // The artist's roughness texture contains the engraving. Retain that detail.
-      material.roughness = 1.25;
+      material.roughness = brightStudioSettings.metal.roughnessMultiplier;
       material.needsUpdate = true;
       if (material.map) material.map.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
       if (material.normalMap) material.normalMap.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     }
   });
 
+  let needsRender = true;
   const maximumDpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 600 ? 1.5 : 1.75);
   let dpr = maximumDpr;
   const resize = () => {
@@ -156,6 +105,7 @@ async function start() {
     renderer.setPixelRatio(dpr);renderer.setSize(width, heightPx, false);
     camera.aspect = width / heightPx;
     camera.zoom = Math.min(1, camera.aspect / 0.95);camera.updateProjectionMatrix();
+    needsRender = true;
   };
   new ResizeObserver(resize).observe(host);resize();
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -166,7 +116,6 @@ async function start() {
   let last = performance.now();
   let frameCount = 0;let sampleTime = last;let fps = 60;
   let qualityAdjusted = false;
-  let needsRender = true;
   controls.addEventListener('change', () => {needsRender = true;});
   const paint = () => {
     scene.updateMatrixWorld(true);
