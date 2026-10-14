@@ -1,0 +1,577 @@
+{
+  "id": "ring-webgl-studio-v1",
+  "accepted_by_user": "2026-10-09",
+  "pending_other_rings": 15,
+  "reference": {
+    "product": "La Vivion LE0211OV01",
+    "url": "https://boomalive.github.io/aft-pro-prototype/ring-webgl-v1/",
+    "git_commit": "78262e9e1e751c813df95648d3938cb8474a83bd",
+    "local_package": "outputs/ring-webgl-v1",
+    "preview": "outputs/ring-webgl-v1/preview-v1.png"
+  },
+  "renderer": {
+    "engine": "three",
+    "version": "0.178.0",
+    "three_mesh_bvh_version": "0.9.15",
+    "antialias": true,
+    "alpha": true,
+    "power_preference": "high-performance",
+    "output_color_space": "sRGB",
+    "tone_mapping": "ACESFilmic",
+    "exposure": 1.15,
+    "clear_color": "#ffffff",
+    "clear_alpha": 0,
+    "page_background": "#fafafa"
+  },
+  "metal": {
+    "metallic": 1,
+    "roughness_texture_multiplier": 1.25,
+    "environment_intensity": 1,
+    "max_texture_anisotropy": 8,
+    "preserve_original_base_color_normal_roughness_metallic_maps_and_uv": true,
+    "reference_textures_px": [
+      2048,
+      2048
+    ],
+    "contact_shading": {
+      "vertex_colors": true,
+      "ao_distance_reference_meters": 0.00055,
+      "bake_samples": 64,
+      "remap_min": 0.62,
+      "remap_range": 0.38
+    }
+  },
+  "diamond": {
+    "ior": 2.42,
+    "surface": "flat facet normals",
+    "side": "FrontSide",
+    "algorithm": "BVH internal ray tracing, refraction, total internal reflection, Fresnel blend",
+    "high_quality_bounces": {
+      "centre": 12,
+      "pave": 7
+    },
+    "low_quality_bounces": {
+      "centre": 6,
+      "pave": 3
+    },
+    "dispersion": {
+      "centre": 0.0018,
+      "pave": 0
+    },
+    "linear_tint": [
+      0.99,
+      0.998,
+      1
+    ],
+    "epsilon": 1.5e-05,
+    "ray_offset_epsilon_multiplier": 4,
+    "bvh_strategy": "SAH",
+    "bvh_leaf_size": 4,
+    "bvh_normalization": "1 / bounding box diagonal length",
+    "environment_sample_mip": 0,
+    "standard_glb_fallback": {
+      "roughness": 0.005,
+      "transmission": 1,
+      "ior": 2.42,
+      "double_sided": false,
+      "volume_thickness": 0.001,
+      "attenuation_color": [
+        0.99,
+        0.998,
+        1
+      ],
+      "attenuation_distance": 1
+    }
+  },
+  "studio": {
+    "metal_pmrem_blur": 0.045,
+    "diamond_cube_resolution": 512,
+    "diamond_cube_type": "HalfFloat",
+    "surround_radius": 20,
+    "surround_metal": {
+      "lower_y": -0.85,
+      "upper_y": -0.05,
+      "mix": [
+        0.055,
+        0.95
+      ],
+      "top_addition": 0.16,
+      "top_smoothstep": [
+        0,
+        0.9
+      ]
+    },
+    "surround_diamond": {
+      "lower_y": -0.85,
+      "upper_y": -0.05,
+      "mix": [
+        0.045,
+        0.56
+      ],
+      "top_addition": 0.17,
+      "top_smoothstep": [
+        0,
+        0.9
+      ]
+    },
+    "surround_formula": "mix(mix[0],mix[1],1-smoothstep(lower_y,upper_y,normalized_direction.y)) + top_addition*smoothstep(0,0.9,normalized_direction.y)",
+    "softbox_gradient": {
+      "canvas_px": [
+        512,
+        32
+      ],
+      "color_space": "sRGB",
+      "stops": [
+        [
+          0,
+          "#656565"
+        ],
+        [
+          0.18,
+          "#d6d6d6"
+        ],
+        [
+          0.46,
+          "#ffffff"
+        ],
+        [
+          0.72,
+          "#eeeeee"
+        ],
+        [
+          1,
+          "#898989"
+        ]
+      ]
+    },
+    "metal_cards": [
+      {
+        "position": [
+          -4,
+          3,
+          4
+        ],
+        "size": [
+          4.0,
+          6
+        ],
+        "linear_rgb": [
+          2.6,
+          2.6,
+          2.6
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          4,
+          1,
+          2
+        ],
+        "size": [
+          1.4,
+          6
+        ],
+        "linear_rgb": [
+          2.1,
+          2.2,
+          2.3
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          0,
+          5,
+          -1
+        ],
+        "size": [
+          5.5,
+          4
+        ],
+        "linear_rgb": [
+          2.4,
+          2.4,
+          2.4
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          -3,
+          1,
+          -4
+        ],
+        "size": [
+          3.5,
+          6
+        ],
+        "linear_rgb": [
+          1.5,
+          1.6,
+          1.7
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          3,
+          -2,
+          -4
+        ],
+        "size": [
+          2.5,
+          5
+        ],
+        "linear_rgb": [
+          1.35,
+          1.35,
+          1.35
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          0,
+          -4,
+          2
+        ],
+        "size": [
+          6,
+          5
+        ],
+        "linear_rgb": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          1,
+          1,
+          5
+        ],
+        "size": [
+          0.4,
+          6
+        ],
+        "linear_rgb": [
+          0.006,
+          0.007,
+          0.008
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      }
+    ],
+    "diamond_cards": [
+      {
+        "position": [
+          -4,
+          4,
+          4
+        ],
+        "size": [
+          3,
+          5
+        ],
+        "linear_rgb": [
+          3.2,
+          3.3,
+          3.45
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          4,
+          2,
+          3
+        ],
+        "size": [
+          1.6,
+          5
+        ],
+        "linear_rgb": [
+          3.8,
+          3.9,
+          4.0
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          0,
+          5,
+          -1
+        ],
+        "size": [
+          5,
+          3.5
+        ],
+        "linear_rgb": [
+          3.0,
+          3.0,
+          3.0
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          -3,
+          0,
+          -5
+        ],
+        "size": [
+          2.2,
+          5
+        ],
+        "linear_rgb": [
+          2.3,
+          2.5,
+          2.7
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          3,
+          -2,
+          -4
+        ],
+        "size": [
+          2.0,
+          4
+        ],
+        "linear_rgb": [
+          2.4,
+          2.3,
+          2.1
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          0,
+          -5,
+          1
+        ],
+        "size": [
+          5,
+          5
+        ],
+        "linear_rgb": [
+          1.35,
+          1.35,
+          1.35
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      },
+      {
+        "position": [
+          1,
+          1,
+          5
+        ],
+        "size": [
+          0.38,
+          6
+        ],
+        "linear_rgb": [
+          0.015,
+          0.02,
+          0.03
+        ],
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "gradient_texture": true,
+        "double_sided": true,
+        "tone_mapped": false
+      }
+    ],
+    "art_direction": "Bright studio; keep narrow dark reflections for polished metal and diamond facet contrast. Avoid broad black lower-band reflection; do not whiten every reflection."
+  },
+  "framing": {
+    "center": "bounding box center",
+    "normalized_height": 3.2,
+    "camera_fov_degrees": 32,
+    "camera_near": 0.01,
+    "camera_far": 100,
+    "camera_direction_before_normalization": [
+      4.3,
+      8.8,
+      7.7
+    ],
+    "camera_distance": 6.7,
+    "camera_up_before_normalization": [
+      -0.65,
+      1,
+      0
+    ],
+    "initial_rotation_y_radians": 1.25,
+    "zoom_formula": "min(1,camera.aspect/0.95)",
+    "adapt_orientation_and_frame_to_each_new_model": true
+  },
+  "interaction": {
+    "rotation_axis": "Y through model center",
+    "turn_seconds": 16,
+    "resume_after_interaction_ms": 2500,
+    "mouse_and_touch": true,
+    "zoom": true,
+    "pan": false,
+    "damping_factor": 0.085,
+    "rotate_speed": 0.62,
+    "zoom_speed": 0.7,
+    "min_distance": 4.5,
+    "max_distance": 12,
+    "min_polar_angle": 0.14,
+    "max_polar_angle": "pi - 0.14",
+    "arrow_key_step_radians": 0.12,
+    "pause_reset_buttons": true,
+    "respect_reduced_motion": true
+  },
+  "performance": {
+    "max_dpr_desktop": 1.75,
+    "max_dpr_mobile": 1.5,
+    "mobile_breakpoint_px": 600,
+    "reduce_once_below_fps": 26,
+    "sample_ms": 2000,
+    "reduced_dpr_factor": 0.78,
+    "reduced_dpr_floor": 1,
+    "restore_full_quality_when_paused": true,
+    "pause_offscreen_and_hidden_tab": true,
+    "stationary_render_on_demand": true,
+    "draco_worker_limit": 2
+  },
+  "export": {
+    "format": "GLB",
+    "embed_textures": true,
+    "separate_each_closed_stone": true,
+    "preserve_engraving": true,
+    "preserve_geometry_and_uv": true,
+    "unit": "meters",
+    "Y_up": true,
+    "mesh_metadata": {
+      "metal_role": "metal",
+      "diamond_role": "diamond",
+      "hero": true,
+      "metal_name_prefix": "WhiteGold",
+      "centre_name": "Diamond_Centre",
+      "pave_name_prefix": "Diamond_Pave"
+    },
+    "no_cameras_lights_animation": true,
+    "contact_colors_export": "ACTIVE",
+    "repair_zero_tangents_before_compression": true,
+    "remove_unused_gem_uvs_and_tangents": true,
+    "draco": {
+      "compression_level": 7,
+      "position_bits": 16,
+      "normal_bits": 14,
+      "texcoord_bits": 16,
+      "color_bits": 12,
+      "generic_bits": 16
+    }
+  },
+  "delivery": {
+    "web": "HTML + viewer.js + GLB + local Draco decoder; no CDN",
+    "offline": "self-contained HTML with embedded assets",
+    "preserve_accepted_v1": true,
+    "new_ring_folder_per_model": true,
+    "same_appearance_requires_viewer_shader_and_studio": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "README.md": "3b5d14fdf54ac93076a243f49ed72f3b9471041f2c54869f21588b70fabf2f3a",
+  "developer-source/DiamondMaterial.ts": "0b5d1c37f87502b20c5d9cf2f8b58a07984d32abffae67b9bdcab2216ebaa1fa",
+  "developer-source/RingWebViewer.ts": "5b08556b779486d6c330399dac4ad37fca113ad862325db89d76e1dc529ce410",
+  "developer-source/build_ring_web_package.py": "def82829de2f4d128599476c8c68c9185d034c7e874a8cbe27748fdd078c3133",
+  "developer-source/fill_ring_texture_gutters.py": "959939f6d1cbca21661b9916d0e22d5268f075506beedc9605bb91eb139562bb",
+  "developer-source/pack_ring_glb.py": "ebc96ee7c6390860e03302cb3f4086a7b6e72f0a2c2ec5162d185f0ce5a2defb",
+  "developer-source/prepare_blend_ring_web.py": "6d38e085745b4d605f97b43f5fa252a8a48147faade017b2a54fb7539241ea38",
+  "draco/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+  "draco/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+  "embed.html": "e4bc07939ddd06f6e0a65776cf84105d7be42d1cfdcd24aa413446e719a03b6d",
+  "index.html": "2bcf7afee7bfd6a0407b65ee699e61ecbbaaaa73264dab9d1fbe537ebb987819",
+  "licenses/draco-Apache-2.0.txt": "d3709b0fb4b8a94bbb1d02b8a2e484f258b0d9c5c5a01f940391f3fe662cd1a4",
+  "licenses/drei-MIT.txt": "2e36b208b403882158daf95cae207087bbb830db4d434a79ebafffca177244c8",
+  "licenses/three-MIT.txt": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+  "licenses/three-mesh-bvh-MIT.txt": "b106ef6198a9862ed2b5b873e944ecf3583c631a84a7462d400ecc1910ce7fee",
+  "preparation-report.json": "6c5a95bd746280683840269bb5ab0641388accf7564de6286c3cf8d8924e2d13",
+  "preset.json": "24a5a723c6af70796ced252d645c38528d0dedd0ba5baa2ebac9c6856de83f97",
+  "preview-v1.png": "f2742abe9263feae0279c01c172d3d3096f99cc850d84dfeb126e01c8a166745",
+  "quality-checks.json": "621c21936c97b8080200f46980fef137c5896ce8c2303c0a02d87623790740f3",
+  "ring-web-v1.glb": "e94bfc600e9ff2021d0a2d08654ddc3e527f952555a2a82f59d9815f3ba1e02a",
+  "viewer.js": "3217fbf06bf0fb10735e5a7c1325f2243e474fb8ef813153df452c6afc32371c"
+}

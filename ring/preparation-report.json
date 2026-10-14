@@ -1,0 +1,59 @@
+{
+  "source_file": "/Users/boomalive/Downloads/WithEnvironment.blend",
+  "ratio": 0.18,
+  "source_metal_triangles": 790296,
+  "optimized_metal_triangles": 142252,
+  "gems": 37,
+  "gem_triangles": 11048,
+  "texture_resolution": 2048,
+  "uncompressed_glb_bytes": 9188284,
+  "triangles_total": 153300,
+  "geometry_reduction_percent": 80.86963900646913,
+  "glb_bytes": 2967256,
+  "offline_html_bytes": 4936745,
+  "silhouette_comparison": [
+    {
+      "pose": 0,
+      "resolution": [
+        1600,
+        1600
+      ],
+      "silhouette_iou": 0.9994644547023007,
+      "different_pixels": 176,
+      "different_pixels_pct_of_silhouette": 0.05355452976992852,
+      "different_pixels_outside_one_pixel_tolerance": 0
+    },
+    {
+      "pose": 1,
+      "resolution": [
+        1600,
+        1600
+      ],
+      "silhouette_iou": 0.9996051524740918,
+      "different_pixels": 138,
+      "different_pixels_pct_of_silhouette": 0.03948475259082924,
+      "different_pixels_outside_one_pixel_tolerance": 0
+    },
+    {
+      "pose": 2,
+      "resolution": [
+        1600,
+        1600
+      ],
+      "silhouette_iou": 0.9996036331138358,
+      "different_pixels": 106,
+      "different_pixels_pct_of_silhouette": 0.039636688616417816,
+      "different_pixels_outside_one_pixel_tolerance": 0
+    }
+  ],
+  "geometry_samples": {
+    "ratio": 0.18,
+    "vertices": 71108,
+    "triangles": 142252,
+    "source_samples": 64702,
+    "max_source_to_low_mm": 0.004416769370436668,
+    "p99_source_to_low_mm": 0.0010975076584145427,
+    "max_low_to_source_mm": 0.00415488425642252,
+    "p99_low_to_source_mm": 0.0014837604248896241
+  }
+}
