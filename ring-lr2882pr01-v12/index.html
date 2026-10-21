@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>LA VIVION · LR2882PR01 · v12</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #fafafa; color: #343737; font-family: Arial, Helvetica, sans-serif; }
+    body { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; }
+    .stage { width: min(96vw, 1000px); height: min(calc(100vh - 96px), 850px); height: min(calc(100svh - 96px), 850px); min-height: 240px; position: relative; overflow: hidden; }
+    canvas { width: 100%; height: 100%; display: block; opacity: 0; outline: none; touch-action: none; transition: opacity .35s; }
+    canvas:focus-visible { outline: 1px solid #8a9794; outline-offset: -3px; border-radius: 15px; }
+    .ready canvas { opacity: 1; }
+    #status { position: absolute; left: 12px; right: 12px; top: 48%; text-align: center; font-size: 13px; color: #8c9390; }
+    .controls { width: min(94vw, 1000px); display: flex; justify-content: center; align-items: center; gap: 10px; padding: 8px 8px 12px; }
+    button { min-height: 44px; border: 1px solid #d9ddda; background: #fff; color: #48534d; font: 12px Arial, sans-serif; border-radius: 30px; padding: 11px 20px; cursor: pointer; }
+    button:hover { background: #edf0ee; }
+    button:focus-visible { outline: 2px solid #87978d; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { canvas { transition: none; } }
+  </style>
+</head>
+<body>
+  <main id="viewer" class="stage" aria-label="Кольцо">
+    <div id="status" role="status">Загружаю кольцо…</div>
+  </main>
+  <div class="controls" role="group" aria-label="Управление моделью">
+    <button id="rotate" type="button" aria-pressed="true">Ⅱ Пауза</button>
+    <button id="reset" type="button">Исходный ракурс</button>
+  </div>
+  <script src="./viewer.js"></script>
+</body>
+</html>
