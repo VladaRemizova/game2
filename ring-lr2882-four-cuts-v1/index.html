@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,">
+ <title>Кольца · 3D</title>
+ <style>
+  *{box-sizing:border-box}html,body{margin:0;background:#fafafa;color:#353b38;font:14px Arial,sans-serif}
+  body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+  header{padding:20px 24px 16px;border-bottom:1px solid #e7e8e6;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  h1{font-size:18px;font-weight:500;margin:0 0 6px}p{font-size:12px;color:#8a918c;margin:0}
+  #choices{display:flex;gap:8px;flex-wrap:wrap}button{border:1px solid #dfe4df;border-radius:9px;padding:11px 15px;font:12px Arial;color:#536258;background:#fff;cursor:pointer;min-height:44px}
+  button[aria-pressed=true]{background:#edf2eb;border-color:#6d8071;color:#293e2d}button:hover{border-color:#829286}
+  button:focus-visible,a:focus-visible{outline:2px solid #7b9082;outline-offset:3px}
+  main{position:relative;flex:1;min-height:450px}iframe{border:0;display:block;width:100%;height:100%;position:absolute;inset:0}
+  #separate{font-size:12px;color:#657666;text-decoration:none;display:block;padding:10px 24px 12px;text-align:right}
+  @media(max-width:760px){header{padding:16px;display:block}#choices{display:grid;grid-template-columns:1fr 1fr;margin-top:14px;gap:7px}button{padding:10px 8px}main{min-height:420px}#separate{padding-right:16px}}
+ </style>
+</head>
+<body>
+ <header><div><h1>LR2882 · четыре формы камня</h1><p>Студийный свет v12 · интерактивная 3D-модель</p></div><div id="choices" role="group" aria-label="Форма камня"></div></header>
+ <main id="stage"></main>
+ <a id="separate" target="_blank" rel="noopener">Открыть выбранное кольцо отдельно ↗</a>
+ <script id="models" type="application/json">[{"product":"LR2882BR01","label":"Круглый","family":"LR2882","url":"LR2882BR01/index.html","glb_url":"LR2882BR01/ring-web-v1.glb","glb_bytes":1134940,"glb_sha256":"d45f7c96cb3774e938be1100508d34fdc44acb8ef11f259e7495fc1c0b9247a9","stones":1},{"product":"LR2882OV01","label":"Овальный","family":"LR2882","url":"LR2882OV01/index.html","glb_url":"LR2882OV01/ring-web-v1.glb","glb_bytes":1758968,"glb_sha256":"d2f6209fea86f2090d9d3852a3c574aedc0eac65ae98076eb972bdf9a67c36be","stones":1},{"product":"LR2882PR01","label":"Квадратный","family":"LR2882","url":"LR2882PR01/index.html","glb_url":"LR2882PR01/ring-web-v1.glb","glb_bytes":1656792,"glb_sha256":"91edd44cf0d43b50d388a71a52dcd5cf0ee41bd142f4aedf5f7941e2007bd9ed","stones":1},{"product":"LR2882EM01","label":"Прямоугольный","family":"LR2882","url":"LR2882EM01/index.html","glb_url":"LR2882EM01/ring-web-v1.glb","glb_bytes":1801348,"glb_sha256":"d54a114cb2b8fb00394b4ffad12d8e3ca39b815e9d88d7a809d1941ad3b2b2e4","stones":1}]</script>
+ <script>
+ (()=>{
+  const models=JSON.parse(document.getElementById('models').textContent),choices=document.getElementById('choices'),stage=document.getElementById('stage'),separate=document.getElementById('separate');
+  let current=null;
+  function choose(product){
+   const m=models.find(m=>m.product===product)||models[0];if(current===m.product)return;current=m.product;
+   const frame=document.createElement('iframe');frame.title=m.label+' · '+m.product;frame.src=m.url;stage.replaceChildren(frame);separate.href=m.url;
+   for(const button of choices.children)button.setAttribute('aria-pressed',String(button.dataset.product===m.product));
+   if(location.hash.slice(1)!==m.product)history.replaceState(null,'','#'+m.product);
+  }
+  for(const m of models){const button=document.createElement('button');button.type='button';button.dataset.product=m.product;button.textContent=m.label;button.addEventListener('click',()=>choose(m.product));choices.append(button);}
+  window.addEventListener('hashchange',()=>choose(location.hash.slice(1)));choose(location.hash.slice(1));
+ })();
+ </script>
+</body>
+</html>

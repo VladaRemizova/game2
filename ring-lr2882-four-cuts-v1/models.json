@@ -1,0 +1,46 @@
+{
+  "family": "LR2882",
+  "preset": "v12",
+  "models": [
+    {
+      "product": "LR2882BR01",
+      "label": "Круглый",
+      "family": "LR2882",
+      "url": "LR2882BR01/index.html",
+      "glb_url": "LR2882BR01/ring-web-v1.glb",
+      "glb_bytes": 1134940,
+      "glb_sha256": "d45f7c96cb3774e938be1100508d34fdc44acb8ef11f259e7495fc1c0b9247a9",
+      "stones": 1
+    },
+    {
+      "product": "LR2882OV01",
+      "label": "Овальный",
+      "family": "LR2882",
+      "url": "LR2882OV01/index.html",
+      "glb_url": "LR2882OV01/ring-web-v1.glb",
+      "glb_bytes": 1758968,
+      "glb_sha256": "d2f6209fea86f2090d9d3852a3c574aedc0eac65ae98076eb972bdf9a67c36be",
+      "stones": 1
+    },
+    {
+      "product": "LR2882PR01",
+      "label": "Квадратный",
+      "family": "LR2882",
+      "url": "LR2882PR01/index.html",
+      "glb_url": "LR2882PR01/ring-web-v1.glb",
+      "glb_bytes": 1656792,
+      "glb_sha256": "91edd44cf0d43b50d388a71a52dcd5cf0ee41bd142f4aedf5f7941e2007bd9ed",
+      "stones": 1
+    },
+    {
+      "product": "LR2882EM01",
+      "label": "Прямоугольный",
+      "family": "LR2882",
+      "url": "LR2882EM01/index.html",
+      "glb_url": "LR2882EM01/ring-web-v1.glb",
+      "glb_bytes": 1801348,
+      "glb_sha256": "d54a114cb2b8fb00394b4ffad12d8e3ca39b815e9d88d7a809d1941ad3b2b2e4",
+      "stones": 1
+    }
+  ]
+}
