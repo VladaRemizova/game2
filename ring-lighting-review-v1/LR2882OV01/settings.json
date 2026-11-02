@@ -1,0 +1,20 @@
+{
+  "product": "LR2882OV01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.008341377067565919,
+      0.008941377067565918
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "OV",
+  "mount": "plain",
+  "lightingRevision": "cut-studio-20261102-v1"
+}

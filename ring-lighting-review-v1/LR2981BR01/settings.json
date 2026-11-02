@@ -1,0 +1,20 @@
+{
+  "product": "LR2981BR01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.008297150897979737,
+      0.008897150897979737
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "BR",
+  "mount": "pave",
+  "lightingRevision": "cut-studio-20261102-v1"
+}

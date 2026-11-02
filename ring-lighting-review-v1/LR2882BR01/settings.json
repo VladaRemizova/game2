@@ -1,0 +1,20 @@
+{
+  "product": "LR2882BR01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.00805,
+      0.00865
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "BR",
+  "mount": "plain",
+  "lightingRevision": "cut-studio-20261102-v1"
+}
