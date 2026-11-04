@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,">
+ <title>LA VIVION · Кольца</title>
+ <style>
+  *{box-sizing:border-box}html,body{margin:0;background:#fafafa;color:#353b38;font:14px Arial,sans-serif}
+  body{height:100vh;height:100svh;display:flex;flex-direction:column}
+  header{padding:18px 24px 14px;border-bottom:1px solid #e4e8e5;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+  h1{font-size:18px;font-weight:500;margin:0 0 5px}p{font-size:12px;color:#818c86;margin:0}
+  .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  #families{margin-left:auto}#toolbar{display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;padding:12px 24px;border-bottom:1px solid #eceeec}
+  button{border:1px solid #dbe1dc;border-radius:8px;padding:10px 14px;font:12px Arial;color:#536258;background:#fff;cursor:pointer;min-height:40px}
+  button[aria-pressed=true]{background:#edf2eb;border-color:#6d8071;color:#293e2d}button:hover{border-color:#829286}
+  button:focus-visible{outline:2px solid #7b9082;outline-offset:3px}
+  main{position:relative;flex:1;min-height:350px}iframe{border:0;display:block;width:100%;height:100%;position:absolute;inset:0}
+  footer{font-size:11px;color:#7b8780;padding:10px 24px 14px}
+  @media(max-width:760px){header{padding:12px 14px;gap:12px}h1{font-size:16px}#families{margin-left:0;display:grid;grid-template-columns:1fr 1fr;width:100%}#toolbar{padding:10px 14px;gap:10px}.row{gap:5px}button{padding:9px 10px;min-height:40px;font-size:11px}footer{padding:8px 14px 12px}#choices{width:100%;display:grid;grid-template-columns:repeat(4,1fr)}}
+ </style>
+</head>
+<body>
+ <header><div><h1>LA VIVION</h1><p>Две оправы · четыре огранки</p></div><div class="row" id="families" role="group" aria-label="Оправа"></div></header>
+ <div id="toolbar">
+  <div class="row" id="choices" role="group" aria-label="Огранка"></div>
+  <div class="row" role="group" aria-label="Ракурс"><button data-view="home" aria-pressed="true">Ракурс ¾</button><button data-view="top" aria-pressed="false">Вид сверху</button></div>
+ </div>
+ <main id="stage"></main><footer id="product"></footer>
+ <script id="models" type="application/json">[{"product":"LR2981BR01","cut":"BR","mount":"pave","url":"LR2981BR01/index.html","glb_bytes":3111660,"glb_sha256":"eb912f8a77b6fcd102dc91967caff2494607c7dd55423688d643bf580504dbc8","stones":21,"groups":{"centre":1,"halo":0,"shank":20}},{"product":"LR2981OV01","cut":"OV","mount":"pave","url":"LR2981OV01/index.html","glb_bytes":3073284,"glb_sha256":"6ad60157382ee88c2f8702203df5d8ed513edec878192f70ef2ad7f96ad04277","stones":21,"groups":{"centre":1,"halo":0,"shank":20}},{"product":"LR2981PR01","cut":"PR","mount":"pave","url":"LR2981PR01/index.html","glb_bytes":2994068,"glb_sha256":"92624c54380a184efb2ec753b6cc4bd86aaea3707c0561a556a85fe590e081f6","stones":21,"groups":{"centre":1,"halo":0,"shank":20}},{"product":"LR2981EM01","cut":"EM","mount":"pave","url":"LR2981EM01/index.html","glb_bytes":2883432,"glb_sha256":"b4f94b3f3687a59dcc084c2cb9b83046fb86efe628284fec69c4bc8af1172cc6","stones":21,"groups":{"centre":1,"halo":0,"shank":20}},{"product":"LR5600BR01","cut":"BR","mount":"halo","url":"LR5600BR01/index.html","glb_bytes":3486616,"glb_sha256":"305c62c187f37720d6a29ae681a527a54c8d73f32afa6f24eea236033cb5a07f","stones":39,"groups":{"centre":1,"halo":20,"shank":18}},{"product":"LR0211OV01","cut":"OV","mount":"halo","url":"LR0211OV01/index.html","glb_bytes":2968880,"glb_sha256":"93ba01661dd4669afbc03f5797c45ee0430c0977c8105130f500e8b9b7ca6338","stones":37,"groups":{"centre":1,"halo":18,"shank":18}},{"product":"LR2411PR01","cut":"PR","mount":"halo","url":"LR2411PR01/index.html","glb_bytes":3343668,"glb_sha256":"8d77b8300db21f0f7a98c8fffc319a40f552cba143eec25247f25521876ee60e","stones":35,"groups":{"centre":1,"halo":16,"shank":18}},{"product":"LR3041EM01","cut":"EM","mount":"halo","url":"LR3041EM01/index.html","glb_bytes":4054284,"glb_sha256":"819cbf2332ba7ada28b0987c98aaced100e902449272c97ed037779478c4bb52","stones":45,"groups":{"centre":1,"halo":24,"shank":20}}]</script>
+ <script>
+ (()=>{
+  const models=JSON.parse(document.getElementById('models').textContent),families=document.getElementById('families'),choices=document.getElementById('choices'),stage=document.getElementById('stage');
+  const names={pave:'С дорожкой',halo:'С ободком'},cuts={BR:'Круг',OV:'Овал',PR:'Принцесса',EM:'Изумруд'};
+  const offline=document.getElementById('offline-assets')?JSON.parse(document.getElementById('offline-assets').textContent):null;
+  let current=null,frame=null,ready=false,view=new URLSearchParams(location.search).get('view')==='top'?'top':'home';
+  function marks(){
+   document.getElementById('product').textContent=current.product;
+   for(const b of families.children)b.setAttribute('aria-pressed',String(b.dataset.mount===current.mount));
+   for(const b of choices.children)b.setAttribute('aria-pressed',String(b.dataset.cut===current.cut));
+   for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===view));
+  }
+  function choose(product){
+   const m=models.find(m=>m.product===product)||models[0];if(current&&current.product===m.product)return;
+   if(frame?.contentWindow.ringPresentation?.dispose)frame.contentWindow.ringPresentation.dispose();
+   current=m;ready=false;frame=document.createElement('iframe');frame.title=names[m.mount]+' · '+cuts[m.cut]+' · '+m.product;
+   if(offline){
+    const end='<'+'/script>';
+    const inline='<script id="viewer-initial" type="application/json">'+JSON.stringify({view})+end+
+     '<script id="ring-data" type="application/octet-stream">'+offline.models[m.product]+end+
+     '<script id="draco-wasm" type="application/octet-stream">'+offline.wasm+end+
+     '<script id="draco-wrapper" type="application/octet-stream" data-base64="true">'+offline.wrapper+end+
+     '<script src="data:text/javascript;base64,'+offline.viewer+'">'+end;
+    frame.srcdoc=offline.pages[m.product].replace('<script src="../viewer.js">'+end,inline);
+   }else frame.src=m.url+'?view='+view;
+   stage.replaceChildren(frame);marks();if(location.hash.slice(1)!==m.product)history.replaceState(null,'','#'+m.product);
+  }
+  function update(){if(ready&&frame.contentWindow.ringPresentation?.ready&&frame.contentWindow.ringPresentation.view!==view)frame.contentWindow.ringPresentation.setView(view);marks();}
+  for(const [mount,label]of Object.entries(names)){const b=document.createElement('button');b.type='button';b.dataset.mount=mount;b.textContent=label;b.addEventListener('click',()=>choose(models.find(m=>m.mount===mount&&m.cut===current.cut).product));families.append(b);}
+  for(const [cut,label]of Object.entries(cuts)){const b=document.createElement('button');b.type='button';b.dataset.cut=cut;b.textContent=label;b.addEventListener('click',()=>choose(models.find(m=>m.cut===cut&&m.mount===current.mount).product));choices.append(b);}
+  for(const b of document.querySelectorAll('[data-view]'))b.addEventListener('click',()=>{view=b.dataset.view;update();});
+  window.addEventListener('message',e=>{
+   if(e.source!==frame?.contentWindow||e.origin!==location.origin||e.data?.product!==current?.product)return;
+   if(e.data.type==='ring-presentation:ready'){ready=true;update();}
+   else if(ready&&e.data.type==='ring-presentation:state'){view=e.data.view;marks();}
+  });
+  window.addEventListener('hashchange',()=>choose(location.hash.slice(1)));choose(location.hash.slice(1));
+ })();
+ </script>
+</body>
+</html>

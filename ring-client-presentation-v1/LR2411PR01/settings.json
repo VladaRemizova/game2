@@ -1,0 +1,22 @@
+{
+  "product": "LR2411PR01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.00830013542175293,
+      0.00890013542175293
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "PR",
+  "mount": "halo",
+  "lightingRevision": "client-presentation-20261104-v1",
+  "metal": "v12",
+  "centrePreset": "v12"
+}

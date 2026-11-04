@@ -1,0 +1,22 @@
+{
+  "product": "LR2981EM01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.00823841028213501,
+      0.00883841028213501
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "EM",
+  "mount": "pave",
+  "lightingRevision": "client-presentation-20261104-v1",
+  "metal": "v12",
+  "centrePreset": "emerald-b"
+}

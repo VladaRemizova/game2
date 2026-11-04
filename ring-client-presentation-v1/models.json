@@ -1,0 +1,117 @@
+{
+  "revision": "client-presentation-20261104-v1",
+  "models": [
+    {
+      "product": "LR2981BR01",
+      "cut": "BR",
+      "mount": "pave",
+      "url": "LR2981BR01/index.html",
+      "glb_bytes": 3111660,
+      "glb_sha256": "eb912f8a77b6fcd102dc91967caff2494607c7dd55423688d643bf580504dbc8",
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      }
+    },
+    {
+      "product": "LR2981OV01",
+      "cut": "OV",
+      "mount": "pave",
+      "url": "LR2981OV01/index.html",
+      "glb_bytes": 3073284,
+      "glb_sha256": "6ad60157382ee88c2f8702203df5d8ed513edec878192f70ef2ad7f96ad04277",
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      }
+    },
+    {
+      "product": "LR2981PR01",
+      "cut": "PR",
+      "mount": "pave",
+      "url": "LR2981PR01/index.html",
+      "glb_bytes": 2994068,
+      "glb_sha256": "92624c54380a184efb2ec753b6cc4bd86aaea3707c0561a556a85fe590e081f6",
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      }
+    },
+    {
+      "product": "LR2981EM01",
+      "cut": "EM",
+      "mount": "pave",
+      "url": "LR2981EM01/index.html",
+      "glb_bytes": 2883432,
+      "glb_sha256": "b4f94b3f3687a59dcc084c2cb9b83046fb86efe628284fec69c4bc8af1172cc6",
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      }
+    },
+    {
+      "product": "LR5600BR01",
+      "cut": "BR",
+      "mount": "halo",
+      "url": "LR5600BR01/index.html",
+      "glb_bytes": 3486616,
+      "glb_sha256": "305c62c187f37720d6a29ae681a527a54c8d73f32afa6f24eea236033cb5a07f",
+      "stones": 39,
+      "groups": {
+        "centre": 1,
+        "halo": 20,
+        "shank": 18
+      }
+    },
+    {
+      "product": "LR0211OV01",
+      "cut": "OV",
+      "mount": "halo",
+      "url": "LR0211OV01/index.html",
+      "glb_bytes": 2968880,
+      "glb_sha256": "93ba01661dd4669afbc03f5797c45ee0430c0977c8105130f500e8b9b7ca6338",
+      "stones": 37,
+      "groups": {
+        "centre": 1,
+        "halo": 18,
+        "shank": 18
+      }
+    },
+    {
+      "product": "LR2411PR01",
+      "cut": "PR",
+      "mount": "halo",
+      "url": "LR2411PR01/index.html",
+      "glb_bytes": 3343668,
+      "glb_sha256": "8d77b8300db21f0f7a98c8fffc319a40f552cba143eec25247f25521876ee60e",
+      "stones": 35,
+      "groups": {
+        "centre": 1,
+        "halo": 16,
+        "shank": 18
+      }
+    },
+    {
+      "product": "LR3041EM01",
+      "cut": "EM",
+      "mount": "halo",
+      "url": "LR3041EM01/index.html",
+      "glb_bytes": 4054284,
+      "glb_sha256": "819cbf2332ba7ada28b0987c98aaced100e902449272c97ed037779478c4bb52",
+      "stones": 45,
+      "groups": {
+        "centre": 1,
+        "halo": 24,
+        "shank": 20
+      }
+    }
+  ]
+}
