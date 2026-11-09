@@ -1,0 +1,22 @@
+{
+  "product": "LR2981OV01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.008235036182403566,
+      0.008835036182403565
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "OV",
+  "mount": "pave",
+  "lightingRevision": "client-presentation-20261104-v1",
+  "metal": "v12",
+  "centrePreset": "source-gem-contrast"
+}

@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "product": "LR2981EM01",
+      "label": "Изумруд",
+      "cut": "EM",
+      "url": "LR2981EM01/index.html",
+      "centrePreset": "emerald-source-gem-contrast"
+    },
+    {
+      "product": "LR2981BR01",
+      "label": "Круг",
+      "cut": "BR",
+      "url": "LR2981BR01/index.html",
+      "centrePreset": "source-gem-contrast"
+    },
+    {
+      "product": "LR2981OV01",
+      "label": "Овал",
+      "cut": "OV",
+      "url": "LR2981OV01/index.html",
+      "centrePreset": "source-gem-contrast"
+    },
+    {
+      "product": "LR2981PR01",
+      "label": "Принцесса",
+      "cut": "PR",
+      "url": "LR2981PR01/index.html",
+      "centrePreset": "source-gem-contrast"
+    }
+  ]
+}
