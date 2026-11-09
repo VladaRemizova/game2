@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,">
+ <title>LA VIVION · Четыре огранки</title>
+ <style>
+  *{box-sizing:border-box}html,body{margin:0;background:#fafafa;color:#353b38;font:14px Arial,sans-serif}
+  body{height:100vh;height:100svh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:14px}
+  button{border:1px solid #dbe1dc;border-radius:24px;padding:11px 20px;font:12px Arial;color:#536258;background:white;cursor:pointer;min-height:44px}
+  button[aria-pressed=true]{background:#edf2eb;border-color:#6d8071;color:#293e2d}
+  button:hover{border-color:#829286}button:focus-visible{outline:2px solid #7b9082;outline-offset:3px}
+  main{position:relative;flex:1;min-height:280px}iframe{border:0;display:block;width:100%;height:100%;position:absolute;inset:0}
+  footer{padding:7px 14px 12px;text-align:center;font-size:11px;color:#87918b}
+  @media(max-width:600px){header{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px}button{padding:10px 5px;font-size:11px}}
+ </style>
+</head>
+<body>
+ <header id="choices" role="group" aria-label="Огранка"></header>
+ <main id="stage"></main><footer id="product"></footer>
+ <script id="models" type="application/json">[{"product":"LR2981EM01","label":"Изумруд","cut":"EM","url":"LR2981EM01/index.html","centrePreset":"emerald-source-gem-contrast"},{"product":"LR2981BR01","label":"Круг","cut":"BR","url":"LR2981BR01/index.html","centrePreset":"round-dark-accents"},{"product":"LR2981OV01","label":"Овал","cut":"OV","url":"LR2981OV01/index.html","centrePreset":"v12"},{"product":"LR2981PR01","label":"Принцесса","cut":"PR","url":"LR2981PR01/index.html","centrePreset":"v12"}]</script>
+ <script>
+ (()=>{
+  const models=JSON.parse(document.getElementById('models').textContent),choices=document.getElementById('choices'),stage=document.getElementById('stage');
+  const offline=document.getElementById('offline-assets')?JSON.parse(document.getElementById('offline-assets').textContent):null;
+  let current=null,frame=null;
+  function choose(product){
+   const next=models.find(m=>m.product===product)||models[0];if(next.product===current?.product)return;
+   frame?.contentWindow.ringPresentation?.dispose?.();current=next;
+   frame=document.createElement('iframe');frame.title=next.label+' · '+next.product;
+   if(offline){
+    const end='<'+'/script>';
+    const inline='<script id="ring-data" type="application/octet-stream">'+offline.models[next.product]+end+
+     '<script id="draco-wasm" type="application/octet-stream">'+offline.wasm+end+
+     '<script id="draco-wrapper" type="application/octet-stream" data-base64="true">'+offline.wrapper+end+
+     '<script src="data:text/javascript;base64,'+offline.viewer+'">'+end;
+    frame.srcdoc=offline.pages[next.product].replace('<script src="../viewer.js">'+end,inline);
+   }else frame.src=next.url;
+   stage.replaceChildren(frame);
+   for(const b of choices.children)b.setAttribute('aria-pressed',String(b.dataset.product===next.product));
+   document.getElementById('product').textContent=next.product;
+   if(location.hash.slice(1)!==next.product)history.replaceState(null,'','#'+next.product);
+  }
+  for(const m of models){const b=document.createElement('button');b.type='button';b.dataset.product=m.product;b.textContent=m.label;b.addEventListener('click',()=>choose(m.product));choices.append(b);}
+  window.addEventListener('hashchange',()=>choose(location.hash.slice(1)));choose(location.hash.slice(1));
+ })();
+ </script>
+</body>
+</html>
