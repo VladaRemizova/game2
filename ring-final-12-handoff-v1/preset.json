@@ -1,0 +1,17 @@
+{
+  "lightingRevision": "client-presentation-20261104-v1",
+  "metal": "v12",
+  "smallStones": "v12",
+  "centre": {
+    "BR": "round-dark-accents",
+    "OV": "v12",
+    "PR": "v12"
+  },
+  "ior": 2.42,
+  "exposure": 1.15,
+  "shader": "FinalDiamondMaterial-v12",
+  "runtimeApi": "diamond-final-v1",
+  "inspectionPauseMs": 2000,
+  "returnMs": 1100,
+  "snapshotWidth": 1500
+}

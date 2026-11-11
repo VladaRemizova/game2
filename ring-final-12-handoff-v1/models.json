@@ -1,0 +1,335 @@
+{
+  "revision": "final-client-20261104-v1",
+  "models": [
+    {
+      "product": "LR2882BR01",
+      "url": "LR2882BR01/index.html",
+      "preview": "LR2882BR01/preview.png",
+      "glb_bytes": 1134940,
+      "glb_sha256": "d45f7c96cb3774e938be1100508d34fdc44acb8ef11f259e7495fc1c0b9247a9",
+      "triangles": 55202,
+      "source_metal_triangles": 73200,
+      "optimized_metal_triangles": 54900,
+      "stones": 1,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 0
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.75,
+          "max_source_to_low_mm": 0.0066322628408670425,
+          "p99_source_to_low_mm": 0.001438677608966826,
+          "max_low_to_source_mm": 0.013325396925210953,
+          "p99_low_to_source_mm": 0.0009628143685404112
+        }
+      ],
+      "cut": "BR",
+      "mount": "plain",
+      "centrePreset": "round-dark-accents"
+    },
+    {
+      "product": "LR2981BR01",
+      "url": "LR2981BR01/index.html",
+      "preview": "LR2981BR01/preview.png",
+      "glb_bytes": 3111660,
+      "glb_sha256": "eb912f8a77b6fcd102dc91967caff2494607c7dd55423688d643bf580504dbc8",
+      "triangles": 146342,
+      "source_metal_triangles": 664566,
+      "optimized_metal_triangles": 140000,
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.21066380163896437,
+          "max_source_to_low_mm": 0.002872403711080551,
+          "p99_source_to_low_mm": 0.0008435938938055188,
+          "max_low_to_source_mm": 0.007459536660462618,
+          "p99_low_to_source_mm": 0.0011424919066484996
+        }
+      ],
+      "cut": "BR",
+      "mount": "pave",
+      "centrePreset": "round-dark-accents"
+    },
+    {
+      "product": "LR2906BR01",
+      "url": "LR2906BR01/index.html",
+      "preview": "LR2906BR01/preview.png",
+      "glb_bytes": 2202452,
+      "glb_sha256": "de7fa8b836f1a7050907e066dbe5f5e721490a5bdce1cdd023363f0aef04319b",
+      "triangles": 140382,
+      "source_metal_triangles": 494492,
+      "optimized_metal_triangles": 140000,
+      "stones": 3,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 2
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.28311883710959934,
+          "max_source_to_low_mm": 0.002676198724657297,
+          "p99_source_to_low_mm": 0.00037561527860816544,
+          "max_low_to_source_mm": 0.0037815470714122057,
+          "p99_low_to_source_mm": 0.0004257250949740431
+        }
+      ],
+      "cut": "BR",
+      "mount": "shoulder",
+      "centrePreset": "round-dark-accents"
+    },
+    {
+      "product": "LR5600BR01",
+      "url": "LR5600BR01/index.html",
+      "preview": "LR5600BR01/preview.png",
+      "glb_bytes": 3486616,
+      "glb_sha256": "305c62c187f37720d6a29ae681a527a54c8d73f32afa6f24eea236033cb5a07f",
+      "triangles": 151778,
+      "source_metal_triangles": 848110,
+      "optimized_metal_triangles": 140000,
+      "stones": 39,
+      "groups": {
+        "centre": 1,
+        "halo": 20,
+        "shank": 18
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.16507292686090247,
+          "max_source_to_low_mm": 0.005715946201235056,
+          "p99_source_to_low_mm": 0.0010425462189596138,
+          "max_low_to_source_mm": 0.008572837337851524,
+          "p99_low_to_source_mm": 0.001637386796064689
+        }
+      ],
+      "cut": "BR",
+      "mount": "halo",
+      "centrePreset": "round-dark-accents"
+    },
+    {
+      "product": "LR2882PR01",
+      "url": "LR2882PR01/index.html",
+      "preview": "LR2882PR01/preview.png",
+      "glb_bytes": 1656792,
+      "glb_sha256": "91edd44cf0d43b50d388a71a52dcd5cf0ee41bd142f4aedf5f7941e2007bd9ed",
+      "triangles": 140112,
+      "source_metal_triangles": 582372,
+      "optimized_metal_triangles": 140000,
+      "stones": 1,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 0
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.24039617289292756,
+          "max_source_to_low_mm": 0.00167858658824116,
+          "p99_source_to_low_mm": 0.0003030304270214402,
+          "max_low_to_source_mm": 0.00311143696308136,
+          "p99_low_to_source_mm": 0.0003243518379167654
+        }
+      ],
+      "cut": "PR",
+      "mount": "plain",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2981PR01",
+      "url": "LR2981PR01/index.html",
+      "preview": "LR2981PR01/preview.png",
+      "glb_bytes": 2994068,
+      "glb_sha256": "92624c54380a184efb2ec753b6cc4bd86aaea3707c0561a556a85fe590e081f6",
+      "triangles": 146152,
+      "source_metal_triangles": 662742,
+      "optimized_metal_triangles": 140000,
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.2112435910203367,
+          "max_source_to_low_mm": 0.0024143930058926344,
+          "p99_source_to_low_mm": 0.0006987316202139469,
+          "max_low_to_source_mm": 0.003404872724786401,
+          "p99_low_to_source_mm": 0.0009243257582420477
+        }
+      ],
+      "cut": "PR",
+      "mount": "pave",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2906PR01",
+      "url": "LR2906PR01/index.html",
+      "preview": "LR2906PR01/preview.png",
+      "glb_bytes": 2115540,
+      "glb_sha256": "5a9e4df8d6180b5d1cdba44c5aaf417b4deb9f0d7e6655e7363c8ac58fea98ab",
+      "triangles": 140191,
+      "source_metal_triangles": 493784,
+      "optimized_metal_triangles": 139999,
+      "stones": 3,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 2
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.28352478006577775,
+          "max_source_to_low_mm": 0.0024862533900886774,
+          "p99_source_to_low_mm": 0.00034698365372605607,
+          "max_low_to_source_mm": 0.003217517863959074,
+          "p99_low_to_source_mm": 0.0004428763073519818
+        }
+      ],
+      "cut": "PR",
+      "mount": "shoulder",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2411PR01",
+      "url": "LR2411PR01/index.html",
+      "preview": "LR2411PR01/preview.png",
+      "glb_bytes": 3343668,
+      "glb_sha256": "8d77b8300db21f0f7a98c8fffc319a40f552cba143eec25247f25521876ee60e",
+      "triangles": 150380,
+      "source_metal_triangles": 852906,
+      "optimized_metal_triangles": 140000,
+      "stones": 35,
+      "groups": {
+        "centre": 1,
+        "halo": 16,
+        "shank": 18
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.16414470058834152,
+          "max_source_to_low_mm": 0.0023548186291009188,
+          "p99_source_to_low_mm": 0.0008865218167193244,
+          "max_low_to_source_mm": 0.0036016094963997602,
+          "p99_low_to_source_mm": 0.0012402031128294758
+        }
+      ],
+      "cut": "PR",
+      "mount": "halo",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2882OV01",
+      "url": "LR2882OV01/index.html",
+      "preview": "LR2882OV01/preview.png",
+      "glb_bytes": 1758968,
+      "glb_sha256": "d2f6209fea86f2090d9d3852a3c574aedc0eac65ae98076eb972bdf9a67c36be",
+      "triangles": 140176,
+      "source_metal_triangles": 490548,
+      "optimized_metal_triangles": 140000,
+      "stones": 1,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 0
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.2853951091432439,
+          "max_source_to_low_mm": 0.002340128179639578,
+          "p99_source_to_low_mm": 0.00030353941256180397,
+          "max_low_to_source_mm": 0.004161161370575428,
+          "p99_low_to_source_mm": 0.00031146069406531743
+        }
+      ],
+      "cut": "OV",
+      "mount": "plain",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2981OV01",
+      "url": "LR2981OV01/index.html",
+      "preview": "LR2981OV01/preview.png",
+      "glb_bytes": 3073284,
+      "glb_sha256": "6ad60157382ee88c2f8702203df5d8ed513edec878192f70ef2ad7f96ad04277",
+      "triangles": 146216,
+      "source_metal_triangles": 382812,
+      "optimized_metal_triangles": 140000,
+      "stones": 21,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 20
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.3657147633825481,
+          "max_source_to_low_mm": 0.006857246160507202,
+          "p99_source_to_low_mm": 0.0010251560946926478,
+          "max_low_to_source_mm": 0.00808962807059288,
+          "p99_low_to_source_mm": 0.0015232438175007605
+        }
+      ],
+      "cut": "OV",
+      "mount": "pave",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR2082OV01",
+      "url": "LR2082OV01/index.html",
+      "preview": "LR2082OV01/preview.png",
+      "glb_bytes": 2104108,
+      "glb_sha256": "4468c88609b871f9cbe8df04e77b1f6ce2f24c1bc6ab5cb45319cecf38d273bb",
+      "triangles": 140528,
+      "source_metal_triangles": 391744,
+      "optimized_metal_triangles": 140000,
+      "stones": 3,
+      "groups": {
+        "centre": 1,
+        "halo": 0,
+        "shank": 2
+      },
+      "geometry_checks": [
+        {
+          "ratio": 0.3573762457114851,
+          "max_source_to_low_mm": 0.0033453565556555986,
+          "p99_source_to_low_mm": 0.00034982428653165706,
+          "max_low_to_source_mm": 0.004410263150930405,
+          "p99_low_to_source_mm": 0.0003895408153766766
+        }
+      ],
+      "cut": "OV",
+      "mount": "shoulder",
+      "centrePreset": "v12"
+    },
+    {
+      "product": "LR0211OV01",
+      "url": "LR0211OV01/index.html",
+      "preview": "LR0211OV01/preview.png",
+      "glb_bytes": 2968880,
+      "glb_sha256": "93ba01661dd4669afbc03f5797c45ee0430c0977c8105130f500e8b9b7ca6338",
+      "triangles": 153300,
+      "source_metal_triangles": 790296,
+      "optimized_metal_triangles": 142252,
+      "stones": 37,
+      "groups": {
+        "centre": 1,
+        "halo": 18,
+        "shank": 18
+      },
+      "reference": true,
+      "geometry_checks": [],
+      "original_v12_unchanged": true,
+      "cut": "OV",
+      "mount": "halo",
+      "centrePreset": "v12"
+    }
+  ]
+}

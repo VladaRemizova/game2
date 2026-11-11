@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><meta name="ring-viewer-api" content="diamond-final-v1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>LA VIVION · LR0211OV01</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #fafafa; color: #343737; font-family: Arial, Helvetica, sans-serif; }
+    body { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; }
+    .stage { width: min(96vw, 1000px); height: min(calc(100vh - 96px), 850px); height: min(calc(100svh - 96px), 850px); min-height: 240px; position: relative; overflow: hidden; }
+    canvas { width: 100%; height: 100%; display: block; opacity: 0; outline: none; touch-action: none; transition: opacity .35s; }
+    canvas:focus-visible { outline: 1px solid #8a9794; outline-offset: -3px; border-radius: 15px; }
+    .ready canvas { opacity: 1; }
+    #status { position: absolute; left: 12px; right: 12px; top: 48%; text-align: center; font-size: 13px; color: #8c9390; }
+    .controls { width: min(94vw, 1000px); display: flex; justify-content: center; align-items: center; gap: 10px; padding: 8px 8px 12px; }
+    button { min-height: 44px; border: 1px solid #d9ddda; background: #fff; color: #48534d; font: 12px Arial, sans-serif; border-radius: 30px; padding: 11px 20px; cursor: pointer; }
+    button:hover { background: #edf0ee; }
+    button:focus-visible { outline: 2px solid #87978d; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { canvas { transition: none; } }
+  
+ html,body{width:100%;height:100%;min-height:0;margin:0;padding:0;display:block;background:#fff;overflow:hidden}
+ .stage{width:100vw;height:100vh;min-height:0;margin:0}.controls{display:none!important}
+ </style>
+</head>
+<body>
+  <main id="viewer" class="stage" aria-label="Кольцо">
+    <div id="status" role="status">Загружаю кольцо…</div>
+  </main>
+  <div class="controls" role="group" aria-label="Управление моделью">
+    <button id="rotate" type="button" aria-pressed="true">Ⅱ Пауза</button>
+    <button id="reset" type="button">Исходный ракурс</button>
+  </div>
+  <script id="ring-config" type="application/json">{"id":"ring-client-final-v12","ior":2.42,"metal":{"surround":[0.4,0.7,1],"blur":0,"roughnessMultiplier":0.6,"cards":[{"position":[-4,3,4],"size":[4.8,7],"radiance":2.1},{"position":[4,1,2],"size":[2.5,7],"radiance":1.8},{"position":[0,5,-1],"size":[5.5,4.5],"radiance":2.2},{"position":[-3,1,-4],"size":[4,7],"radiance":1.5},{"position":[3,-2,-4],"size":[4,6],"radiance":1.5},{"position":[0,-4,2],"size":[6,5],"radiance":1.7},{"position":[1,1,3.4],"size":[1.15,7],"radiance":0.001},{"position":[-3,0.1,1.2],"size":[0.9,6],"radiance":0.002},{"position":[2.5,0,-3],"size":[1,7],"radiance":0.001},{"position":[-0.9,0.1,3.2],"size":[0.28,6],"radiance":0.003},{"position":[3.2,0.2,1],"size":[0.32,7],"radiance":0.002}],"cubeSize":512,"gradient":[[0,"#a0a0a0"],[0.18,"#eeeeee"],[0.45,"#ffffff"],[0.72,"#fafafa"],[1,"#bababa"]]},"halo":{"surround":[0.085,0.18,0.34],"cubeSize":512,"cards":[{"position":[-4,4,4],"size":[5,6],"radiance":2.3},{"position":[4,2,3],"size":[3,6],"radiance":2.6},{"position":[0,5,-1],"size":[6,5],"radiance":2.2},{"position":[-3,0,-5],"size":[4,6],"radiance":1.9},{"position":[3,-2,-4],"size":[3,5],"radiance":2.1},{"position":[0,-5,1],"size":[6,6],"radiance":1.8},{"position":[1.5,3.5,2.5],"size":[0.65,1.8],"radiance":2.1},{"position":[1,1,3.4],"size":[0.85,6],"radiance":0.004},{"position":[-3,0.1,1.2],"size":[1,6],"radiance":0.006},{"position":[2.5,0,-3],"size":[0.8,6],"radiance":0.004}]},"centreAndShank":{"surround":[0.25,0.48,0.78],"cubeSize":512,"cards":[{"position":[-4,4,4],"size":[5.6000000000000005,6.720000000000001],"radiance":2.53},{"position":[4,2,3],"size":[3.3600000000000003,6.720000000000001],"radiance":2.8600000000000003},{"position":[0,5,-1],"size":[6.720000000000001,5.6000000000000005],"radiance":2.4200000000000004},{"position":[-3,0,-5],"size":[4.48,6.720000000000001],"radiance":2.09},{"position":[3,-2,-4],"size":[3.3600000000000003,5.6000000000000005],"radiance":2.3100000000000005},{"position":[0,-5,1],"size":[6.720000000000001,6.720000000000001],"radiance":1.9800000000000002},{"position":[1.5,3.5,2.5],"size":[0.7280000000000001,2.0160000000000005],"radiance":2.3100000000000005},{"position":[0,-3,7],"size":[5,5.5],"radiance":2.2},{"position":[-7,-2,1],"size":[4.5,5.5],"radiance":2.3},{"position":[1,1,3.4],"size":[0.85,6],"radiance":0.004},{"position":[-3,0.1,1.2],"size":[1,6],"radiance":0.006},{"position":[2.5,0,-3],"size":[0.8,6],"radiance":0.004}]},"diamond":{"centre":{"roughness":0.018,"surfaceReflectionStrength":0.12,"dispersion":0.0018},"halo":{"roughness":0.014,"surfaceReflectionStrength":0.22,"dispersion":0},"shank":{"roughness":0.018,"surfaceReflectionStrength":0.22,"dispersion":0},"bounces":{"centre":12,"pave":7},"haloMinimumOriginalY":0.01},"product":"LR0211OV01","cut":"OV","mount":"halo","lightingRevision":"client-presentation-20261104-v1","centrePreset":"v12","preparedGameViewer":true}</script>
+<script src="../viewer.js"></script>
+<script src="../final-motion.js"></script>
+</body>
+</html>

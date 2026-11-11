@@ -1,0 +1,22 @@
+{
+  "product": "LR2981BR01",
+  "innerSurface": {
+    "inwardNormalBlend": [
+      0.42,
+      0.9
+    ],
+    "radialBlendMeters": [
+      0.008297150897979737,
+      0.008897150897979737
+    ],
+    "upperBoundaryMeters": [
+      0.0055,
+      0.0075
+    ]
+  },
+  "cut": "BR",
+  "mount": "pave",
+  "lightingRevision": "client-presentation-20261104-v1",
+  "centrePreset": "round-dark-accents",
+  "preparedGameViewer": true
+}
